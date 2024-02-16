@@ -1,0 +1,88 @@
+/**
+* Файл: app/static/css/reset.css
+ * Автор: Андрей Пшеничный
+ * Дата: 13 Февраля 2024
+ *
+ * Название: Сброс стилей
+ * Версия: 1.0
+ * Описание: Этот файл содержит стили для сброса стандартных 
+ * стилей браузера и предоставляет базовые стили для элементов HTML,
+ * таких как ссылки, заголовки, списки и изображения. Основной функцией 
+ * этого файла является установка единообразного внешнего вида элементов 
+ * на странице и обеспечение консистентности дизайна.
+ */
+
+*,
+*::before,
+*::after {
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	/* box-sizing: border-box; */
+}
+
+/* Links */
+
+a, a:visited  {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover  {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Common */
+
+aside, nav, footer, header, section, main {
+	display: block;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-size: inherit;
+	font-weight: inherit;
+	line-height: inherit;
+}
+
+p + p {
+	margin-top: 1em;
+}
+
+ul {
+	list-style: none;
+}
+
+img, svg {
+	vertical-align: top;
+	max-width: 100%;
+	height: auto;
+}
+
+section, header, footer {
+	padding: 0 15px;
+  }
+  
+  @media (min-width: 575.98px){
+	section, header, footer {
+	  padding: 0 calc(50vw - 266px);
+	}
+  }
+  
+  @media (min-width: 767.98px){
+	section, header, footer {
+	  padding: 0 calc(50vw - 355px);
+	}
+  }
+  
+  @media (min-width: 991.98px) {
+	section, header, footer {
+	  padding: 0 calc(50vw - 458px);
+	}
+  }
+
+  @media (min-width: 1199.98px){
+	section, header, footer {
+	  padding: 0 calc(50vw - 555px);
+	}
+  }

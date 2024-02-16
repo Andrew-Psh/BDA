@@ -1,0 +1,107 @@
+/**
+ * Файл: app/static/css/form_styles.css
+ * Автор: Андрей Пшеничный
+ * Дата: 13 Февраля 2024
+ *
+ * Название: Стили для форм
+ * Версия: 1.0
+ * Описание: В этом файле содержатся стили для пользовательских форм ввода информации на веб-сайте.
+ */
+
+/* Делаем контейнер блочным элементом и устанавливаем его ширину на 100% */
+.container {
+  display: flex;
+  width: 100%;
+}
+
+/* Определяем ширину колонок */
+.flashed-messages-column {
+  flex: 4; /* Занимает 1/3 ширины контейнера */
+}
+
+.form-column {
+  flex: 3; /* Занимает 2/3 ширины контейнера */
+}
+
+/* Стилизация формы для занимания 40% ширины экрана и выравнивания по центру */
+.wtform {
+  width: 80%; /* Устанавливаем ширину таблицы */
+  margin: 0 auto; /* Центрируем таблицу по горизонтали */
+  padding: 20px; /* Добавляем внутренний отступ для контейнера */
+
+  background-color: #f2f2f2; /* Цвет фона */
+  border: 1px solid #ccc; /* Границы таблицы */
+  border-radius: 10px; /* Закругляем углы таблицы */
+  
+}
+form.wtform {
+  width: calc(100% - 40px);
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box; /* Учитываем ширину границы и отступов в общей ширине элемента */
+  margin-top: 20px; /* Отступ сверху  */
+  margin-left: 20px; /* Отступ слева */
+  margin-right: 20px; /* Отступ справа */
+  margin-bottom: 20px; /* Отступ снизу */
+}
+
+form.wtform .child-form-fields {
+  width: 90%; /* Устанавливаем ширину в 100% от родительского контейнера */
+  box-sizing: border-box; /* Учитываем ширину границы и отступов в общей ширине элемента */
+}
+/* Стилизация полей дочерней формы */
+form.wtform .form-fields input[type="text"],
+form.wtform .form-fields input[type="text"],
+form.wtform .form-fields select {
+  font-size: 20px; /* Увеличиваем размер шрифта в полях ввода и выпадающих списках */
+  width: 100%; /* Увеличиваем ширину полей до 90% для заполнения пустого пространства */
+  box-sizing: border-box; /* Учитываем ширину границы и отступов в общей ширине элемента */
+  margin-bottom: 10px; /* Создаем отступ между полями */
+}
+
+/* Стилизация меток пользовательских полей */
+form.wtform label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+/* Стилизация кнопки отправки */
+form.wtform input[type="submit"] {
+  width: 20%;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #7c7f7c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#user, #color {
+  width: 100%; /* Устанавливаем ширину таблицы */
+  margin: 0px auto; /* Центрируем таблицы по горизонтали с небольшим отступом сверху и снизу */
+  border: 0px solid #ccc; /* Добавляем границы таблицам */
+  border-collapse: collapse; /* Сворачиваем границы ячеек */
+}
+
+#user label, #color label {
+  display: block; /* Размещаем метки на новой строке */
+  font-weight: bold; /* Делаем метки жирными */
+}
+
+.form-container-right {
+  float: right;
+  width: 70%; /* Ширина формы */
+  margin-left: 70px; /* Дополнительный отступ слева, если нужен */
+  margin-top: 0px; /* Дополнительный отступ слева, если нужен */
+
+}
+
+.form-group-hidden-field {
+  display: none;  /* Ваши текущие стили для display */
+} 
+
+.CSRF-Token-Field {
+  display: none;
+}

@@ -1,0 +1,137 @@
+/**
+ * Файл: app/static/css/navigation_styles.css
+ * Автор: Андрей Пшеничный
+ * Дата: 13 Февраля 2024
+ *
+ * Название: Стили для основного меню навигации
+ * Версия: 1.0
+ * Описание: В этом файле содержатся стили для основного меню навигации на веб-сайте.
+ * Основа шаблона взята с сайта ruseller.com (https://ruseller.com/lessons.php?id=2031&rub=2)
+ */
+ 
+
+/* === Стили для основного меню навигации === */
+
+.menu {
+  display: flex;
+  background: #e3e1e1; /* Обновленный цвет фона для навигационного меню */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: solid px #b1afaf;
+  border-bottom: solid 1px #b1afaf;
+  color: #4c4c4d;
+  align-items: center; /* Выравниваем по центру вертикально */
+  margin-top: -px; /* Расстояние от верхнего края */
+  border: solid 1px #fff;
+  box-shadow:  0px -2px 3px -1px rgba(0, 0, 0, 1);
+}
+
+/* Дополнительные стили для основных элементов и подменю */
+
+.main-items, .additional-items {
+  display: flex;
+  margin-right: 40px;
+}
+
+.main-items {
+  flex: 1; /* Занимает все доступное пространство в строке */
+}
+
+.additional-items {
+  margin-left: auto; /* Установка автоматического левого внешнего отступа, чтобы элемент оставался вправо от остальных элементов */
+  float: right; /* Выравнивание элемента справа относительно родительского контейнера с использованием свойства float */
+  margin-right: 20px; /* Расстояние от правого края */
+  margin-top: 0px; /* Расстояние от верхнего края */
+}
+
+
+/* Применение стилей ко всем элементам в меню с классом .navigation */
+.navigation {
+  list-style: none; /* Удаление маркеров списка */
+}
+
+
+/* Подробнее стили для элементов навигации, подменю и их состояний */
+
+/* Применение стилей к элементам <li> в меню с классом .navigation */
+.navigation li {
+  float: left;
+}
+
+/* Применение стилей к элементам <li>, на которые наведен 
+курсор мыши в меню с классом .navigation */
+.navigation li:hover {
+  background: #b0b0b1;
+}
+
+/* Применение стилей к первому элементу <li> внутри меню с классом .navigation */
+.navigation li:first-child {
+  -webkit-border-radius: 0px 0px 0px 0px; /* Установка границы радиуса для верхнего левого угла элемента для WebKit браузеров */
+  border-radius: 0px 0 0 0px; /* Установка границы радиуса для верхнего левого угла элемента */
+}
+
+/* Применение стилей ко всем элементам <a>, которые являются 
+потомками элемента <li> внутри меню с классом .navigation */
+.navigation li a {
+  display: block;
+  padding: 0 20px;
+  text-decoration: none;
+  line-height: 40px;
+  color: #424141;
+}
+
+/* Применение стилей к элементам <ul> внутри меню с классом .navigation */
+.navigation ul {
+  display: none; /* Начально скрываем список при сворачивании */
+  position: absolute; /* Позволяет позиционировать список абсолютно относительно ближайшего позиционированного родителя */
+  list-style: none; /* Удаление маркеров списка */
+  margin-left: -1px; /* Установка отрицательного левого внешнего отступа для поправки позиционирования */
+  padding: 0; /* Установка внутренних отступов списка нулевыми */
+  overflow: hidden; /* Управление видимостью содержимого списка, выходящего за его пределы */
+}
+
+/* Применение стилей ко всем элементам <li>, которые являются 
+потомками элемента <ul> внутри меню с классом .navigation */
+.navigation ul li {
+  float: none;
+}
+
+/* Применение стилей к непосредственным потомкам элемента <ul> 
+в основном меню при наведении на элемент списка */
+.navigation li:hover > ul {
+  display: block;
+  background: #b0b0b1;
+  border: solid 1px #fff;
+  border-top: 0px;
+  
+  -webkit-border-radius: 0 0 8px 8px;
+  border-radius: 0 0 8px 8px;
+  
+  -webkit-box-shadow:  0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+  box-shadow:  0px 3px 3px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Применение стилей к элементам списка в основном и подменю при наведении курсора */
+.navigation li:hover > ul li:hover {
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 3px 3px;
+}
+
+
+/* Применение стилей к ссылкам <a>, на которые наведен курсор 
+во вложенных элементах <li> в меню с классом .navigation */
+.navigation li li a:hover {
+  background: #dcdada;
+  color: #353535;
+}
+
+/* Применение стилей к последнему элементу <a> в последнем 
+элементе <li> внутри <ul> в меню с классом .navigation */
+.navigation ul li:last-child a,
+.navigation ul li:last-child a:hover {
+  -webkit-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px; 
+}
+
+/* Конец блока навигация */

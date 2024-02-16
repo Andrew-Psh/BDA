@@ -1,0 +1,43 @@
+/**
+ * Файл: app/static/css/flashed_messages.css
+ * Автор: Андрей Пшеничный
+ * Дата: 13 Февраля 2024
+ *
+ * Название: Стили для флеш сообщений 
+ * Версия: 1.0
+ * Описание: В этом файле содержатся стили для пользовательских форм ввода информации на веб-сайте.
+ */
+
+
+h2 {
+    padding-left: 20px;
+    padding-bottom: 7px;
+}
+
+/* Стили для флеш-сообщений */
+.flashed-messages-column {
+    width: 300px; /* Ширина колонки для сообщений */
+    margin-right: 20px; /* Отступ справа */
+    font-family: Arial, sans-serif; /* Задание шрифта */
+}
+
+/* Стили для окна сообщений */
+.flashed-messages-column h2 {
+    font-style: oblique;
+    font-size: 1.2em;
+    /* margin-bottom: 10px; Отступ снизу */
+    color: #555; /* Цвет заголовка */
+}
+
+/* Стили для списка сообщений */
+.flashed-messages-column ul {
+    padding-left: 20px; /* Отступ слева */
+}
+
+/* Стили для отдельного сообщения */
+.flashed-messages-column li {
+    /* margin-bottom: 5px; Отступ снизу */
+    font-style: oblique;
+    font-size: 1em;
+    color: #333; /* Цвет текста сообщения */
+}

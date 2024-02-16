@@ -1,0 +1,14 @@
+"""
+File: runtime.txt
+
+Content:
+Python version specified for the project.
+
+Content:
+python-3.12.1
+
+Note: 
+Specifies the required Python version for the project runtime.
+"""
+
+python-3.12.1

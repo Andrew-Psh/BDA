@@ -1,0 +1,29 @@
+<!-- app/templates/utilites/json_file_form.html -->
+
+{% extends "common/base.html" %} 
+{% block content %}
+<div class="container">
+    <div class="flashed-messages-column">
+        <!-- Всплывающие сообщения будут здесь -->
+        {% block flashed_messages %}
+            {% include 'common/flashed_messages.html' %}
+        {% endblock flashed_messages %}
+    </div>
+    <div class="form-column">
+        <form action="" method="post" novalidate enctype="multipart/form-data" class="wtform">
+        <!-- <form action="" method="post" novalidate, class="wtform"> -->
+            {{ form.csrf_token }}
+            <!-- Наличие полей из родительской формы DinamicSelectField обеспечивает успешную валидацию составных полей
+            FormField(DinamicSelectField)  -->
+            <!-- Цикл для отображения полей из AddUser --> 
+            {% for field in form if field.name not in ['csrf_token', 'submit'] %}
+            <div class="form-fields">
+                    <label for="{{ field.id }}">{{ field.label.text }}</label>
+                    {{ field }}
+                </div>
+            {% endfor %}
+            {{ form.submit }}
+        </form>
+    </div>
+</div>
+{% endblock %}

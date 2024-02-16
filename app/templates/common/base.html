@@ -1,0 +1,47 @@
+<!-- bda/app/templates/common/base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/styles.css')}}">
+    <script src="{{ url_for('static', filename='js/dsf.js') }}"></script>
+     {% if title -%}
+      <title>Проект - {{ title }}</title>
+    {% else %}
+    <title>Без названия</title>
+    {% endif -%} 
+
+  </head>
+  
+  <body>
+      <div class="wrapper">    
+         {# блок навигации  #}
+         {% block navigator %}
+  
+         {# добавляем панель навигации из nav_base.html #} 
+         {% include 'common/nav_base.html' %} 
+     
+         {% endblock navigator %}
+      
+        
+        <div class="content">  
+          {% block content -%} 
+          {% endblock content -%}  
+        </div>           
+       
+    
+    </div>
+    
+    <footer class="footer">
+      <address>
+        <p>Email Me: <a href="mailto:sms13g@gmail.com">sms13g@gmail.com</a></p>
+      </address>
+      <div class="copyright-notice">
+        <p>© <time datetime="2024">2024,</time> All rights reserved by Andrey Phsenichnyy</p>
+      </div>
+    </footer>
+  </body>
+</html>
+

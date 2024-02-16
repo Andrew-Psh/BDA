@@ -1,0 +1,14 @@
+<!-- bda/app/templates/common/flashed_messages.html -->
+
+{# блок всплывающих сообщений  #}
+{% block flashed_messages %}
+{% with messages = get_flashed_messages() %}
+<h2>Окно сообщений</h2>
+{% if messages %}
+    <ul>
+    {% for message in messages %}
+      <li>{{ message }}</li>  
+    {% endfor %}  
+    </ul>
+{% endif %} {% endwith %}  
+{% endblock flashed_messages %}  

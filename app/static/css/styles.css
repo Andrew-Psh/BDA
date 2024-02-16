@@ -1,0 +1,21 @@
+/**
+ * Файл: app/static/css/styles.css
+ * Автор: Андрей Пшеничный
+ * Дата: 13 Февраля 2024
+ *
+ * Название: Общие стили для веб-страницы
+ * Версия: 1.0
+ * Описание: Этот файл объединяет различные стили для элементов веб-страницы, включая 
+ * сброс стилей с помощью 'reset.css', 
+ * стили для основного контента в 'body_styles.css', 
+ * навигационные стили в 'navigation_styles.css', 
+ * стили для форм на странице в 'form_styles.css', 
+ * стили для всплывающих сообщений в 'flashed_messages.css'. 
+ */
+
+@import url('reset.css');
+@import url('body_styles.css');
+@import url('navigation_styles.css');
+@import url('form_styles.css');
+@import url('flashed_messages.css');
+

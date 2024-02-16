@@ -1,0 +1,36 @@
+<!-- app/templates/samples/dinamic_select_field.html -->
+
+{% extends "common/base.html" %} 
+{% block content %}
+<div class="container">
+    <div class="flashed-messages-column">
+        <!-- Всплывающие сообщения будут здесь -->
+        {% block flashed_messages %}
+            {% include 'common/flashed_messages.html' %}
+        {% endblock flashed_messages %}
+    </div>
+    <div class="form-column">
+<form method="POST" id="formDinamic" action="{{ url_for('show_dinamicselectfield') }}" class="wtform">
+  <h1>Форма с динамическим полем</h1>
+  {{ form.csrf_token }}
+  <div class="group-user" data-table-name="users">
+    {% for field in form %}
+        {% if field.name  == 'input_field' %}
+            {{ field.label}}<br> 
+            {{ field(class="form-input", type="text", id=field.id, placeholder=field.render_kw.placeholder, value="") }}
+            {% elif field.name  == 'selection_from_db' %}  
+                {{ field(class="form-select", id=field.id, size="2", hidden="hidden") }} 
+                    {% for choice in field.choices %}
+                        <div data-value="{{ choice }}">{{ choice }}</div>
+                    {% endfor %}  
+          
+            {% endif %}            
+
+    {% endfor %}
+  </div>
+      <button type="submit">Отправить</button>
+</form>
+</div>
+</div>
+{% endblock %}
+

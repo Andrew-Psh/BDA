@@ -1,0 +1,65 @@
+#.gitignore
+
+
+# Исключаем временные и скомпилированные файлы Python
+*.py[cod]
+
+
+# Исключаем скомпилированные C расширения
+*.so
+
+# Исключаем папки, содержащие скомпилированный байткод Python
+pycache/
+__pycache__/
+
+
+# Исключаем пакеты Python и связанные директории
+*.egg
+*.egg-info
+dist
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+pycache
+
+# Исключаем логи установщика pip
+pip-log.txt
+
+
+# Исключаем отчеты об unit-тестировании и покрытии
+.coverage
+.tox
+nosetests.xml
+
+
+# Исключаем файлы переводов
+*.mo
+
+# Mr Developer (для специфических настроек)
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Исключаем виртуальное окружение Python
+venv
+
+
+# Исключаем файл базы данных приложения и логи
+app.db
+microblog.log*
+
+### macOS ###
+# Исключаем метаданные macOS
+*.DS_Store
+.AppleDouble
+.LSOverride
+
+# Исключаем файл с конфиденциальными данными (например, .env)
+# .env
