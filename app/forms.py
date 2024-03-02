@@ -38,7 +38,7 @@ from flask_wtf import FlaskForm
 from wtforms import Form, SelectField, StringField, SubmitField, FormField, FileField
 from wtforms.validators import DataRequired, ValidationError, Length
 from werkzeug.utils import secure_filename
-from app.models import User, Color
+from app.models import Character, User, Color
 
 
 class DinamicSelectField(FlaskForm):
@@ -68,25 +68,44 @@ class AddUser(DinamicSelectField):
     def to_list_field(self):
         return [ 
             {
-            'compare_result': self.user.input_field.data == self.user.selection_from_db.data,
+            # 'compare_result': self.user.input_field.data == self.user.selection_from_db.data,
             'field_name': self.user.input_field.name,
             'field_data': self.user.input_field.data,
             'table_name': 'users'
             },
             {  
-            'compare_result': self.color.input_field.data == self.color.selection_from_db.data,
+            # 'compare_result': self.color.input_field.data == self.color.selection_from_db.data,
             'field_name': self.color.input_field.name,
             'field_data': self.color.input_field.data,
             'table_name': 'colors'
             },
             {
-            'compare_result': True,
+            # 'compare_result': True,
             'field_name': self.address.name,
             'field_data':  self.address.data,
             'table_name': 'addresses'
             }
         ]
 
+class AddCharacter(DinamicSelectField):
+    character_name = StringField('Введите персонаж', validators=[DataRequired(), Length(min=3, max=50)], render_kw={'placeholder': 'Введите персонаж'})
+    color_name = FormField(DinamicSelectField)
+    address =  FormField(DinamicSelectField)
+
+    submit = SubmitField('Добавить')    
+
+    def validate_name(self, field):
+        existing_character = Character.query.filter_by(name=field.data).first()
+        if existing_character is not None:
+            raise ValidationError('Такое имя персонажа уже существует в базе данных. Введите другое имя.')
+
+    def to_dict_field_attr(self):
+        return {
+                'color_name': {'label': 'Цвет', 'table_name': 'colors'},
+                'address': {'label': 'Адрес', 'table_name': 'addresses'}
+                } 
+    
+    
 
 ##################### U T I L I T E S #####################     
 
@@ -97,7 +116,7 @@ class JSONFileForm(FlaskForm):
     """
     # DEFAULT_CHOICE = [('', 'Выбери модель')]  # Значение по умолчанию для model_choices
 
-    model_choices = [('User', 'User'), ('Color', 'Color' )]  # Добавляем DEFAULT_CHOICE к вариантам выбора модели
+    model_choices = [('User', 'User'), ('Color', 'Color'), ('Character', 'Character')]  # Добавляем DEFAULT_CHOICE к вариантам выбора модели
     # model_choices = [('', 'Выбери  модель'), ('User', 'User'), ('Color', 'Color' )]  # Создание списка вариантов для выбора модели
     
     file = FileField('Выберите JSON файл', validators=[DataRequired()], render_kw={"webkitdirectory": True, "directory": "db_loader_and_json"})
@@ -110,3 +129,4 @@ class JSONFileForm(FlaskForm):
             filename = secure_filename(file.data.filename)
             if not filename.endswith('.json'):
                 raise ValidationError('Пожалуйста, выберите файл с расширением .json')
+

@@ -58,22 +58,18 @@
 
 from app import app, db
 import os
-# from dotenv import load_dotenv
-from app.models import Color, User
 
-# Get the absolute path to the project root
-# project_root = os.path.abspath(os.path.dirname(__file__))
-
-# Load environment variables from the .env file
-# load_dotenv()
-
-# Access environment variables as needed, like SECRET_KEY and DATABASE_URL
-# SECRET_KEY = os.getenv('SECRET_KEY')
-# DATABASE_URL = os.getenv('DATABASE_URL')
+from app.models import  User, Character, Color
 
 @app.shell_context_processor
 def make_shell_context():
    '''
    Запустите оболочку в контексте приложения, используя команду "flask shell".    
    '''
-   return {'db': db, 'Color': Color, 'User': User}
+   return {'db': db, 
+           'User': User, 
+           'Character': Character, 
+           'Color': Color, 
+         #   'Address': Address,
+         #   'characters_colors': characters_colors
+           }

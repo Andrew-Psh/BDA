@@ -18,7 +18,7 @@
 
 from flask import flash
 import json
-from app.models import User, Color
+from app.models import User, Color, Character
 from app import db  
 import os
 from sqlalchemy.inspection import inspect
@@ -44,7 +44,7 @@ def load_data_from_json(json_file, model_name):
     with open(os.path.join('db_loader_and_json', json_file)) as file:
         data = json.load(file)
         
-        model_choices = {'User': User, 'Color': Color}  # Словарь для выбора модели по имени
+        model_choices = {'User': User, 'Color': Color, 'Character': Character}  # Словарь для выбора модели по имени
         model = model_choices.get(model_name)  # Получение соответствующей модели
 
         if model:

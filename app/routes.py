@@ -38,8 +38,8 @@
 
 from app import app, db
 from flask import render_template, url_for, flash, jsonify, request, redirect
-from app.models import User, Color, Address
-from app.forms import JSONFileForm, AddUser, DinamicSelectField
+from app.models import User, Color, Character, Address
+from app.forms import JSONFileForm, AddUser, DinamicSelectField, AddCharacter
 from db_loader_and_json.db_loader import load_data_from_json
 from jinja2 import Environment, BaseLoader
 from flask import Flask, render_template
@@ -61,7 +61,12 @@ def get_model(table_name):
     Пример возврата:
     (User, User.name)
     """
-    data = {'users': (User, User.name), 'colors': (Color, Color.color_name), 'address': (Address, Address.address)}
+    data = {
+        'users': {'model': User, 'field': User.name}, 
+        'colors': {'model': Color, 'field': Color.name},
+        'addresses': {'model': Address, 'field': Address.location},
+        'characters': {'model': Character, 'field': Character.name}
+        }
     return data[table_name]
 
 
@@ -84,7 +89,7 @@ def get_choices():
     """
 
     table_name = request.args.get('table_name')    
-    data = db.session.query(get_model(table_name)[1]).all()
+    data = db.session.query(get_model(table_name)['field']).all()
     columns = [name[0] for name in data]
     print("columns = ", columns)  # for logging
 
@@ -147,12 +152,12 @@ def show_field():
         flash('Форма валидна')
         flash('Введены данные User Input - {}; Select - {}.'.format(form.user.input_field.data, form.user.selection_from_db.data))
         flash('Введены данные Color Input - {}; Select - {}.'.format(form.color.input_field.data, form.color.selection_from_db.data))
-        flash('Address {}'.format(form.address.data))
+        # flash('Address {}'.format(form.address.data))
     else:
         flash('Форма не валидна')
         flash('Введены данные User Input - {}; Select - {}.'.format(form.user.input_field.data, form.user.selection_from_db.data))
         flash('Введены данные Color Input - {}; Select - {}.'.format(form.color.input_field.data, form.color.selection_from_db.data))
-        flash('Address {}'.format(form.address.data))
+        # flash('Address {}'.format(form.address.data))
 
     return render_template('samples/field.html', 
                             title="Add User", 
@@ -168,11 +173,11 @@ def add_user():
     if form.validate_on_submit(): 
         for field in fields_name:
             if not field['compare_result']:
-                model = get_model(field['table_name'])[0]
+                model = get_model(field['table_name'])['model']
                 field_name = field['field_name']
                 field_data = field['field_data']  # Получаем фактические данные поля
                 # Создание экземпляра модели 
-                flash("model: {}, field_name: {}, field_data: {}".format(model, field_name, field_data))
+                # flash("model: {}, field_name: {}, field_data: {}".format(model, field_name, field_data))
                         # new_entry = model(**{field_name: field_data})  # Передаем фактические данные в качестве аргумента
                 # flash('new_entry: {}'.format(new_entry))
                 # flash(' в таблицу {} добавлена запись: {}'.format(field['table_name'], new_entry))
@@ -189,13 +194,60 @@ def add_user():
         flash('Форма не валидна')
         flash('Введены данные User Input - {}; Select - {}.'.format(form.user.input_field.data, form.user.selection_from_db.data))
         flash('Введены данные Color Input - {}; Select - {}.'.format(form.color.input_field.data, form.color.selection_from_db.data))
-        flash('Address {}'.format(form.address.data))
+        # flash('Address {}'.format(form.address.data))
 
     return render_template('add_user.html', 
                            title="Add User", 
                            form=form, 
                            fields_data=fields_data 
                            )
+
+
+@app.route('/add_character', methods=['GET', 'POST'])
+def add_character():
+    form = AddCharacter()
+    # fields_name = form.to_list_field()
+    fields_data = form.to_dict_field_attr()
+    
+
+    if form.validate_on_submit(): 
+        flash(f"Форма {form.__class__.__name__} валидна!")
+        try:
+            character_data = form.character_name.data
+            color_data = form.color_name.input_field.data
+            address_data = form.address.input_field.data
+
+            color_obj = Color.query.filter_by(name=color_data).first()
+            if not color_obj:
+                color_obj = Color(name = color_data)
+                db.session.add(color_obj)
+
+            address_obj = Address.query.filter_by(location=address_data).first()
+            if not address_obj:
+                address_obj = Address(location = address_data)
+                db.session.add(address_obj)
+
+            character_obj = Character.query.filter_by(name=character_data).first()
+            if not character_obj:
+                character_obj =Character(name =character_data)
+                character_obj.colors.append(color_obj) 
+                character_obj.addresses.append(address_obj) 
+                db.session.add(character_obj)
+                db.session.commit()
+            
+            flash("Персонаж {} с любимым цветом {} и адресом {} внесен в БД.".format(character_data, color_data, address_data))
+            return redirect(url_for('add_character'))    
+        
+        except ValueError as e:
+            flash(f"Произошла ошибка: {e}")
+            raise ValueError('Пользователь не внесен в БД') 
+ 
+    return render_template('add_character.html', 
+                           title="Add Character", 
+                           form=form, 
+                           fields_data=fields_data 
+                           )
+
 
 
 ##################### U T I L I T E S #####################

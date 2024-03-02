@@ -62,7 +62,7 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableName) {
             var choices = data; // Получаем список значений
             // console.log('get_choices => ' + data);
             var value = inputField.value.toLowerCase(); // Получаем значение поля ввода и приводим его к нижнему регистру
-            
+            selectField.innerHTML = ''; // Очищаем список выбора значений
             choices.forEach(function(choice) {
             if (choice.toLowerCase().includes(value)) { // Если текущее значение включает в себя введенное значение
                 var option = document.createElement('option'); // Создаем новый элемент option
@@ -70,8 +70,9 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableName) {
                 option.text = choice; // Устанавливаем текст элемента option равным текущему значению
                 selectField.appendChild(option); // Добавляем элемент option в список выбора значений
                 currentChoices.push(choice); // Добавляем текущее значение в массив текущих выбранных значений
-            }
+            } 
             });
+
             
             // Код для управления размером поля выбора
             if (value !== '' && currentChoices.length > 0) {
@@ -99,13 +100,10 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableName) {
                     selectField.selectedIndex = 0; // выбираем индех первого значения
                     selectField.focus(); // Переводим фокус на поле выбора значений
                 }
-              }else if(event.key === 'Enter') {// Событие для клавиши 'Enter'
-                event.preventDefault(); // Предотвращаем стандартное поведение клавиши 'Enter'
-                selectField.style.display = 'none'; // Показываем поле выбора значений
               }else if(event.key === 'Escape') {// Событие для клавиши 'Escape'
-                selectField.style.display = 'none'; // Показываем поле выбора значений
+                selectField.style.display = 'none'; // Скрываем поле выбора значений
               }else if(event.key === 'Tab') {// Событие для клавиши 'Tab'
-                selectField.style.display = 'none'; // Показываем поле выбора значений
+                selectField.style.display = 'none'; // Скрываем поле выбора значений
               }
             });
             
@@ -118,11 +116,16 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableName) {
                     inputField.focus(); // Переводим фокус на поле ввода
                     selectField.style.display = 'none'; // Скрываем поле выбора
                 }else if(event.key === 'Escape') {// Событие для клавиши 'Escape'
-                    selectField.style.display = 'none'; // Показываем поле выбора значений
+                    selectField.style.display = 'none'; // Скрываем поле выбора значений
                     inputField.focus(); // Переводим фокус на поле ввода
                   }else if(event.key === 'Tab') {// Событие для клавиши 'Tab'
                     event.preventDefault(); // Предотвращаем стандартное поведение клавиши 'Enter'
                   }
+            });
+
+            // Добавляем скрытие поля выбора при потере фокуса
+            selectField.addEventListener('focusout', function(event) {
+              selectField.style.display = 'none';
             });
 
             // -----------   изменяем стандартное поведение мышки   для полей selectField  -----------  

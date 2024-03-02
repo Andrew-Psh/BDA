@@ -17,8 +17,10 @@
     </div>
     <div class="form-column">
         
-        <form method="POST" id="formDinamic" action="{{ url_for('add_user') }}" class="wtform">
+        <form method="POST" id="formDinamic" action="{{ url_for('add_character') }}" class="wtform">
             {{ form.csrf_token }}
+
+          
 
             <!-- Наличие поля   {{ form.input_field(class="form-group-hidden-field", value="данные для валидации поля") }} 
             из родительской формы DinamicSelectField обеспечивает успешную валидацию составных полей WTForm 
@@ -29,15 +31,18 @@
                 {{ form.input_field(class="CSRF-Token-Field", value="данные для валидации поля") }}
 
             <div class="form-fields">
+                {{ form.character_name.label}}
+                {{ form.character_name(value="") }}
             <div class="child-form-fields">
-                {% for couple_of_fields in form if couple_of_fields.name not in ['csrf_token', 'submit', 'input_field', 'selection_from_db', 'address' ] %}
+
+                {% for couple_of_fields in form if couple_of_fields.name not in ['csrf_token', 'submit', 'input_field', 'selection_from_db', 'character_name' ] %}
                     <div class="group-{{ couple_of_fields.name }}" data-table-name="{{ fields_data[couple_of_fields.name].table_name}}">
                         {% for field in couple_of_fields %}
-                            {% if field.name  == 'user-input_field' or field.name  == 'color-input_field' %}
+                            {% if field.name  == 'address-input_field' or field.name  == 'color_name-input_field' %}
                                 {{ fields_data[couple_of_fields.name].label}}<br> 
                                 {{ field(class="form-input", type="text", id=field.id, placeholder=field.render_kw.placeholder, value="") }}
-                            {% elif field.name  == 'user-selection_from_db'  or field.name == 'color-selection_from_db' %}  
-                               {{ field(class="form-select", id=field.id, size="2", multiple="multiple", hidden="hidden") }} 
+                            {% elif field.name  == 'address-selection_from_db'  or field.name == 'color_name-selection_from_db' %}  
+                               {{ field(class="form-select", id=field.id, multiple="multiple", hidden="hidden") }} 
                                     {% for choice in field.choices %}
                                         <div data-value="{{ choice }}">{{ choice }}</div>
                                     {% endfor %}  
@@ -49,9 +54,6 @@
                         {% endfor %}
                     </div>           
                 {% endfor %}
-            
-                {{ form.address.label }}
-                {{ form.address }}
 
             </div>
              {{ form.submit }}
