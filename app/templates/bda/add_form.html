@@ -1,0 +1,29 @@
+<!-- bda/app/templates/add_form.html -->
+
+{% extends "child.html" %} {% block form %}
+
+<div>
+  <form action="" method="post" novalidate, class="wtform">
+    {{ form.hidden_tag() }}
+    <h1>Добавить запись в таблицу {{ table_name }}</h1>
+
+    {% for field in form if field.name not in ['csrf_token', 'remember', 'submit'] -%}
+        {{ field.label() }} 
+        {% if field.errors %}
+                {{ field(class="invalid") }}
+        <span class="invalid-feedback">
+                {% for e in field.errors %}
+                {{ e }}
+                {% endfor %}
+        </span>
+        {% else %}
+                {{ field() }}
+        {% endif %}
+    {% endfor %}
+    {% if form.submit %}
+        <p class="submit"></p>{{ form.submit() }}</p>
+    {% endif %}
+  </form>
+
+  {% endblock form%}
+</div>

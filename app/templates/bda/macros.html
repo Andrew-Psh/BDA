@@ -1,0 +1,137 @@
+{% macro modal_window(form) %}
+<!-- Модальное окно 1 -->
+<a href="#x" class="overlay" id="popup_window"></a>
+<div class="popup">
+    <form action="", method="post", novalidate, class="wtform">
+        <h2>Добавить запись ВВВ таблицу {{ table_name }}</h2>
+            {{ form.hidden_tag() }}
+
+        {% for field in form if field.name not in ['csrf_token', 'remember', 'submit'] -%}
+            {{ field.label() }} 
+            {% if field.errors %}
+                    {{ field(class="invalid") }}
+            <span class="invalid-feedback">
+                    {% for e in field.errors %}
+                    {{ e }}
+                    {% endfor %}
+            </span>
+            {% else %}
+                    {{ field() }}
+            {% endif %}
+        {% endfor %}
+        {% if form.submit %}
+            <p class="submit"></p>{{ form.submit() }}</p>
+        {% endif %}   
+        <div>
+         <a class="close" title="Закрыть" href="#"></a>
+        </div>
+      </form>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro sample_render_text_field(field) %}{# Образец #}
+<div class="form__group">
+    {{ field.label(class_="form__label") }}
+    {{ field(class_="form__field")}}
+
+    {%- for error in field.errors %}
+        <span class="form__error">{{ error }}</span>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+
+
+
+<!-- По материалам сайта  https://python-web.teclado.com/section14/lectures/07_render_wtform_with_jinja_macros/ -->
+
+{# макросы рендеринга полей #}
+
+{% macro render_text_field(field) %}{# текстовое поле #}
+<div class="form__group ">
+    {{ field.label(class_="form__label") }}
+    {{ field(class_="form__field")}}
+
+    {%- for error in field.errors %}
+        <span class="form__group ">{{ error }}</span>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+{% macro render_select_field(field) %}{# текстовое поле #}
+<div class="form__group">
+
+    {{ field.label(class_="form__label") }}
+    {{ field(size=1, class_="form__field")}}
+
+    {%- for error in field.errors %}
+        <span class="form__group">{{ error }}</span>
+    {% endfor %}
+</div>
+{% endmacro %}
+
+
+
+
+
+
+{% macro genere_form(form, table_name =False) %}
+<div>
+    <form action="" method="post" novalidate, class="wtform">
+
+        <a href="#">Закрыть окно</a>
+    
+      {{ form.hidden_tag() }}
+      <h1>Добавить запись в таблицу {{ table_name }}</h1>
+      
+      {% for field in form if field.name not in ['csrf_token', 'remember', 'submit'] -%}
+          <div>{{ field.label() }} 
+          {% if field.errors %}
+                  {{ field(class="invalid") }}
+          <span class="invalid-feedback">
+                  {% for e in field.errors %}
+                  {{ e }}
+                  {% endfor %}
+          </span>
+          {% else %}
+                  {{ field() }}</div>
+          {% endif %}
+      {% endfor %}
+      {% if form.submit %}
+          <p class="submit"></p>{{ form.submit() }}</p>
+      {% endif %}
+    </form>
+{% endmacro %}
+
+{% macro modal_window1(form) %}
+<!-- Модальное окно 1 -->
+<a href="#x" class="overlay" id="popup_window"></a>
+<div class="popup">
+    <form name="add_movie" method="post" novalidate class="form">
+        <div class="form__container">
+            {{ render_text_field(form.title) }}
+            {{ render_text_field(form.director) }}
+            {{ render_text_field(form.year) }}
+        </div>         
+    <a class="close" title="Закрыть" href="#"></a>
+    </form>
+    </div>
+</div>
+{% endmacro %}
+
+{% macro add_city(form) %}
+<!-- Модальное окно 1 -->
+<a href="#x" class="overlay" id="popup_window"></a>
+<div class="popup">
+    <form name="add_city" method="post" novalidate class="form">
+        <div class="form__container">
+            {{ render_select_field(form.choose_city) }}
+            {{ render_text_field(form.comment) }}
+            <div class="submit">{{ form.submit() }}</div>
+        </div>         
+    <a class="close" title="Закрыть" href="#"></a>
+    </form>
+    </div>
+</div>
+{% endmacro %}

@@ -1,0 +1,1136 @@
+[
+    {
+        "id": 1,
+        "addr": "20-я улица 62В",
+        "city": 1,
+        "street": "20-я улица",
+        "house": "62В",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 2,
+        "addr": "20-я улица 43",
+        "city": 1,
+        "street": "20-я улица",
+        "house": "43",
+        "place": "серверная\r",
+        "comment": null
+    },
+    {
+        "id": 3,
+        "addr": "20-я улица 43 (Стоянка)",
+        "city": 1,
+        "street": "20-я улица",
+        "house": "43 (Стоянка)",
+        "place": "стоянка\r",
+        "comment": null
+    },
+    {
+        "id": 4,
+        "addr": "Б. Садовая 39",
+        "city": 1,
+        "street": "Б. Садовая",
+        "house": "39",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 5,
+        "addr": "Б. Садовая 40",
+        "city": 1,
+        "street": "Б. Садовая",
+        "house": "40",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 6,
+        "addr": "Б. Садовая 41",
+        "city": 1,
+        "street": "Б. Садовая",
+        "house": "41",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 7,
+        "addr": "Б. Садовая 39а",
+        "city": 1,
+        "street": "Б. Садовая",
+        "house": "39а",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 8,
+        "addr": "Б. Садовая 46(ЦУМ) сев. крыло",
+        "city": 1,
+        "street": "Б. Садовая",
+        "house": "46(ЦУМ) сев. крыло",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 9,
+        "addr": "Б. Садовая 46(ЦУМ) южн. крыло",
+        "city": 1,
+        "street": "Б. Садовая",
+        "house": "46(ЦУМ) южн. крыло",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 10,
+        "addr": "Бабаева 15",
+        "city": 1,
+        "street": "Бабаева",
+        "house": "15",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 11,
+        "addr": "Братский 48",
+        "city": 1,
+        "street": "Братский",
+        "house": "48",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 12,
+        "addr": "Буденновский 22",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "22",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 13,
+        "addr": "Буденновский 27",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "27",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 14,
+        "addr": "Буденновский 33",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "33",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 15,
+        "addr": "Буденновский 35",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "35",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 16,
+        "addr": "Буденновский 37",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "37",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 17,
+        "addr": "Буденновский 97",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "97",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 18,
+        "addr": "Буденновский 103Г",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "103Г",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 19,
+        "addr": "Буденновский 26/57",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "26/57",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 20,
+        "addr": "Буденновский 27",
+        "city": 1,
+        "street": "Буденновский",
+        "house": "27",
+        "place": "3 эт. офис 34\r",
+        "comment": null
+    },
+    {
+        "id": 21,
+        "addr": "Варфоломеева 89",
+        "city": 1,
+        "street": "Варфоломеева",
+        "house": "89",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 22,
+        "addr": "Варфоломеева 92а",
+        "city": 1,
+        "street": "Варфоломеева",
+        "house": "92а",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 23,
+        "addr": "Ворошиловский 32",
+        "city": 1,
+        "street": "Ворошиловский",
+        "house": "32",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 24,
+        "addr": "Газетный 58",
+        "city": 1,
+        "street": "Газетный",
+        "house": "58",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 25,
+        "addr": "Газетный 81",
+        "city": 1,
+        "street": "Газетный",
+        "house": "81",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 26,
+        "addr": "Газетный 58в",
+        "city": 1,
+        "street": "Газетный",
+        "house": "58в",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 27,
+        "addr": "Долевой 7",
+        "city": 1,
+        "street": "Долевой",
+        "house": "7",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 28,
+        "addr": "Доломановский 101",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "101",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 29,
+        "addr": "Доломановский 118",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "118",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 30,
+        "addr": "Доломановский 163",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "163",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 31,
+        "addr": "Доломановский 104Б",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "104Б",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 32,
+        "addr": "Доломановский 118-2",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "118-2",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 33,
+        "addr": "Доломановский 132а 1 эт.",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "132а 1 эт.",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 34,
+        "addr": "Доломановский 132а оф. 21 (склад)",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "132а оф. 21 (склад)",
+        "place": "оф. 21 (склад)\r",
+        "comment": null
+    },
+    {
+        "id": 35,
+        "addr": "Доломановский 132а оф. 25",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "132а оф. 25",
+        "place": "оф. 25\r",
+        "comment": null
+    },
+    {
+        "id": 36,
+        "addr": "Доломановский 132а оф. 26 (директор)",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "132а оф. 26 (директор)",
+        "place": "оф. 26 (директор)\r",
+        "comment": null
+    },
+    {
+        "id": 37,
+        "addr": "Доломановский 132а оф.27 (ТП)",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "132а оф.27 (ТП)",
+        "place": "ТП\r",
+        "comment": null
+    },
+    {
+        "id": 38,
+        "addr": "Доломановский 132а УТИЛЬ",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "132а УТИЛЬ",
+        "place": "УТИЛЬ\r",
+        "comment": null
+    },
+    {
+        "id": 39,
+        "addr": "Зенитчиков 57",
+        "city": 1,
+        "street": "Зенитчиков",
+        "house": "57",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 40,
+        "addr": "Зоологическая 13",
+        "city": 1,
+        "street": "Зоологическая",
+        "house": "13",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 41,
+        "addr": "Ивановского 32",
+        "city": 1,
+        "street": "Ивановского",
+        "house": "32",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 42,
+        "addr": "Ивановского 38",
+        "city": 1,
+        "street": "Ивановского",
+        "house": "38",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 43,
+        "addr": "Ивановского 38",
+        "city": 1,
+        "street": "Ивановского",
+        "house": "38",
+        "place": "АТС\r",
+        "comment": null
+    },
+    {
+        "id": 44,
+        "addr": "Книжный 5а",
+        "city": 2,
+        "street": "Книжный",
+        "house": "5а",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 45,
+        "addr": "Космонавтов 2/2",
+        "city": 1,
+        "street": "Космонавтов",
+        "house": "2/2",
+        "place": "оф. 305/2\r",
+        "comment": null
+    },
+    {
+        "id": 46,
+        "addr": "Космонавтов 2/2",
+        "city": 1,
+        "street": "Космонавтов",
+        "house": "2/2",
+        "place": "Целий\r",
+        "comment": null
+    },
+    {
+        "id": 47,
+        "addr": "Красноармейская 66",
+        "city": 1,
+        "street": "Красноармейская",
+        "house": "66",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 48,
+        "addr": "М. Горького 150",
+        "city": 2,
+        "street": "М. Горького",
+        "house": "150",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 49,
+        "addr": "М. Горького 285",
+        "city": 2,
+        "street": "М. Горького",
+        "house": "285",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 50,
+        "addr": "Малый 13",
+        "city": 1,
+        "street": "Малый",
+        "house": "13",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 51,
+        "addr": "Маркова 48",
+        "city": 1,
+        "street": "Маркова",
+        "house": "48",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 52,
+        "addr": "Мечникова 112",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "112",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 53,
+        "addr": "Мечникова 112Б",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "112Б",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 54,
+        "addr": "Мечникова 112Г",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "112Г",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 55,
+        "addr": "Мечникова 114",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "114",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 56,
+        "addr": "Мечникова 114 (гостевая)",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "114 (гостевая)",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 57,
+        "addr": "Мечникова 120",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "120",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 58,
+        "addr": "Мечникова 130",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "130",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 59,
+        "addr": "Мечникова 31/106",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "31/106",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 60,
+        "addr": "Мечникова 39Б",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "39Б",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 61,
+        "addr": "Мечникова 39В",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "39В",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 62,
+        "addr": "Мечникова 45А",
+        "city": 1,
+        "street": "Мечникова",
+        "house": "45А",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 63,
+        "addr": "Мира 33",
+        "city": 2,
+        "street": "Мира",
+        "house": "33",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 64,
+        "addr": "Московская 51",
+        "city": 1,
+        "street": "Московская",
+        "house": "51",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 65,
+        "addr": "Московская 52-54",
+        "city": 1,
+        "street": "Московская",
+        "house": "52-54",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 66,
+        "addr": "Московская 53",
+        "city": 1,
+        "street": "Московская",
+        "house": "53",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 67,
+        "addr": "Московская 55",
+        "city": 1,
+        "street": "Московская",
+        "house": "55",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 68,
+        "addr": "Московская 58а",
+        "city": 1,
+        "street": "Московская",
+        "house": "58а",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 69,
+        "addr": "Московская 58Б",
+        "city": 1,
+        "street": "Московская",
+        "house": "58Б",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 70,
+        "addr": "Нагибина 43",
+        "city": 1,
+        "street": "Нагибина",
+        "house": "43",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 71,
+        "addr": "Нансена 98Б",
+        "city": 1,
+        "street": "Нансена",
+        "house": "98Б",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 72,
+        "addr": "Народного Ополчения 113",
+        "city": 1,
+        "street": "Народного Ополчения",
+        "house": "113",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 73,
+        "addr": "Никулиной 3",
+        "city": 1,
+        "street": "Никулиной",
+        "house": "3",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 74,
+        "addr": "Огородная 74а",
+        "city": 1,
+        "street": "Огородная",
+        "house": "74а",
+        "place": "Оранжерея\r",
+        "comment": null
+    },
+    {
+        "id": 75,
+        "addr": "Освобождения 11а",
+        "city": 1,
+        "street": "Освобождения",
+        "house": "11а",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 76,
+        "addr": "Островского 47",
+        "city": 1,
+        "street": "Островского",
+        "house": "47",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 77,
+        "addr": "Островского 48",
+        "city": 1,
+        "street": "Островского",
+        "house": "48",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 78,
+        "addr": "Павленко 15",
+        "city": 1,
+        "street": "Павленко",
+        "house": "15",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 79,
+        "addr": "Пермская 28",
+        "city": 1,
+        "street": "Пермская",
+        "house": "28",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 80,
+        "addr": "Пермская 6",
+        "city": 1,
+        "street": "Пермская",
+        "house": "6",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 81,
+        "addr": "Пушкинская 114",
+        "city": 1,
+        "street": "Пушкинская",
+        "house": "114",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 82,
+        "addr": "Пушкинская 98-100",
+        "city": 1,
+        "street": "Пушкинская",
+        "house": "98-100",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 83,
+        "addr": "Пушкинская 44",
+        "city": 1,
+        "street": "Пушкинская",
+        "house": "44",
+        "place": "Миком\r",
+        "comment": null
+    },
+    {
+        "id": 84,
+        "addr": "Пушкинская 127 (ОКДЦ)",
+        "city": 1,
+        "street": "Пушкинская",
+        "house": "127 (ОКДЦ)",
+        "place": "ОКДЦ\r",
+        "comment": null
+    },
+    {
+        "id": 85,
+        "addr": "Ржевская 2/140",
+        "city": 1,
+        "street": "Ржевская",
+        "house": "2/140",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 86,
+        "addr": "Сев. массив 8",
+        "city": 2,
+        "street": "Сев. массив",
+        "house": "8",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 87,
+        "addr": "Сев. массив 5/1",
+        "city": 2,
+        "street": "Сев. массив",
+        "house": "5/1",
+        "place": "Стоматология\r",
+        "comment": null
+    },
+    {
+        "id": 88,
+        "addr": "Северная звезда 7",
+        "city": 1,
+        "street": "Северная звезда",
+        "house": "7",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 89,
+        "addr": "Семашко 21/60",
+        "city": 1,
+        "street": "Семашко",
+        "house": "21/60",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 90,
+        "addr": "Серафимовича 42",
+        "city": 1,
+        "street": "Серафимовича",
+        "house": "42",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 91,
+        "addr": "Серафимовича 45",
+        "city": 1,
+        "street": "Серафимовича",
+        "house": "45",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 92,
+        "addr": "Серафимовича 53а 3эт.",
+        "city": 1,
+        "street": "Серафимовича",
+        "house": "53а 3эт.",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 93,
+        "addr": "Скрыпника 12/87",
+        "city": 1,
+        "street": "Скрыпника",
+        "house": "12/87",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 94,
+        "addr": "Скрыпника 14",
+        "city": 1,
+        "street": "Скрыпника",
+        "house": "14",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 95,
+        "addr": "Соборный 21",
+        "city": 1,
+        "street": "Соборный",
+        "house": "21",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 96,
+        "addr": "Соколова 29",
+        "city": 1,
+        "street": "Соколова",
+        "house": "29",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 97,
+        "addr": "Соколова 31",
+        "city": 1,
+        "street": "Соколова",
+        "house": "31",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 98,
+        "addr": "Соколова 52",
+        "city": 1,
+        "street": "Соколова",
+        "house": "52",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 99,
+        "addr": "Соколова 31",
+        "city": 1,
+        "street": "Соколова",
+        "house": "31",
+        "place": "внутри\r",
+        "comment": null
+    },
+    {
+        "id": 100,
+        "addr": "Социалистическая 65",
+        "city": 1,
+        "street": "Социалистическая",
+        "house": "65",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 101,
+        "addr": "Ставропольский 1",
+        "city": 1,
+        "street": "Ставропольский",
+        "house": "1",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 102,
+        "addr": "Стадион ТРУД ",
+        "city": 1,
+        "street": "Стадион ТРУД",
+        "house": "",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 103,
+        "addr": "Стадионная 47",
+        "city": 1,
+        "street": "Стадионная",
+        "house": "47",
+        "place": "???\r",
+        "comment": null
+    },
+    {
+        "id": 104,
+        "addr": "Стадионная 44",
+        "city": 1,
+        "street": "Стадионная",
+        "house": "44",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 105,
+        "addr": "Стадионная 9",
+        "city": 1,
+        "street": "Стадионная",
+        "house": "9",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 106,
+        "addr": "Таврическая 7",
+        "city": 1,
+        "street": "Таврическая",
+        "house": "7",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 107,
+        "addr": "Текучева 109",
+        "city": 1,
+        "street": "Текучева",
+        "house": "109",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 108,
+        "addr": "Текучева 37а",
+        "city": 1,
+        "street": "Текучева",
+        "house": "37а",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 109,
+        "addr": "Темерницкая 41Б / Буденновский 17",
+        "city": 1,
+        "street": "Темерницкая",
+        "house": "41Б",
+        "place": "серверная\r",
+        "comment": null
+    },
+    {
+        "id": 110,
+        "addr": "Тобольский 2",
+        "city": 1,
+        "street": "Тобольский",
+        "house": "2",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 111,
+        "addr": "Тургеневская 49",
+        "city": 1,
+        "street": "Тургеневская",
+        "house": "49",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 112,
+        "addr": "Ушинского 31 к1 п1",
+        "city": 2,
+        "street": "Ушинского",
+        "house": "31 к1 п1",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 113,
+        "addr": "Ушинского 59",
+        "city": 2,
+        "street": "Ушинского",
+        "house": "59",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 114,
+        "addr": "Филимоновская 45",
+        "city": 1,
+        "street": "Филимоновская",
+        "house": "45",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 115,
+        "addr": "Филимоновская 83",
+        "city": 1,
+        "street": "Филимоновская",
+        "house": "83",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 116,
+        "addr": "Фрунзе 11",
+        "city": 1,
+        "street": "Фрунзе",
+        "house": "11",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 117,
+        "addr": "Фрунзе 3",
+        "city": 1,
+        "street": "Фрунзе",
+        "house": "3",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 118,
+        "addr": "Фрунзе 3",
+        "city": 1,
+        "street": "Фрунзе",
+        "house": "3",
+        "place": "1 этаж офис 21\r",
+        "comment": null
+    },
+    {
+        "id": 119,
+        "addr": "Халтуринский 46",
+        "city": 1,
+        "street": "Халтуринский",
+        "house": "46",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 120,
+        "addr": "Цезаря Куникова 32",
+        "city": 1,
+        "street": "Цезаря Куникова",
+        "house": "32",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 121,
+        "addr": "Черепахина 215",
+        "city": 1,
+        "street": "Черепахина",
+        "house": "215",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 122,
+        "addr": "Шеболдаева 95а",
+        "city": 1,
+        "street": "Шеболдаева",
+        "house": "95а",
+        "place": "\r",
+        "comment": null
+    },
+    {
+        "id": 123,
+        "addr": "Шеболдаева 20/2",
+        "city": 1,
+        "street": "Шеболдаева",
+        "house": "20/2",
+        "place": "Электрик\r",
+        "comment": null
+    },
+    {
+        "id": 124,
+        "addr": "20-я улица 58-60",
+        "city": 1,
+        "street": "20-я улица",
+        "house": "58-60",
+        "place": null,
+        "comment": null
+    },
+    {
+        "id": 125,
+        "addr": "20-я улица 43 (Серверная)",
+        "city": 1,
+        "street": "20-я улица",
+        "house": "43 (Серверная)",
+        "place": null,
+        "comment": null
+    },
+    {
+        "id": 132,
+        "addr": "Доломановский 132а оф. 25 (деж.комплект)",
+        "city": 1,
+        "street": "Доломановский",
+        "house": "132а оф. 25 (деж.комплект)",
+        "place": "оф. 25 (деж.комплект)",
+        "comment": null
+    }
+]

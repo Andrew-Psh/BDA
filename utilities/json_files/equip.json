@@ -1,0 +1,137 @@
+[
+    {
+        "id": 1,
+        "type": "Dlink DES-3200-28F",
+        "comment": "0"
+    },
+    {
+        "id": 2,
+        "type": "Eltex-LTP-4X\r",
+        "comment": "0"
+    },
+    {
+        "id": 3,
+        "type": "Eltex-LTP-8X\r",
+        "comment": "0"
+    },
+    {
+        "id": 4,
+        "type": "HS2328P\r",
+        "comment": "0"
+    },
+    {
+        "id": 5,
+        "type": "Raisecom 2110EA-MA-WP\r",
+        "comment": "0"
+    },
+    {
+        "id": 7,
+        "type": "Raisecom 2128EA-MA",
+        "comment": "0"
+    },
+    {
+        "id": 9,
+        "type": "Raisecom i2924gf \r",
+        "comment": "0"
+    },
+    {
+        "id": 11,
+        "type": "Eltex MES2124F\r",
+        "comment": "0"
+    },
+    {
+        "id": 15,
+        "type": "Eltex MES2324FB-AC",
+        "comment": "0"
+    },
+    {
+        "id": 16,
+        "type": "QTECH QSW-46-10T-AC-UPS\r",
+        "comment": "0"
+    },
+    {
+        "id": 17,
+        "type": "Orion Alpha A28F\r",
+        "comment": "0"
+    },
+    {
+        "id": 18,
+        "type": "SNR S2950\r",
+        "comment": "0"
+    },
+    {
+        "id": 19,
+        "type": "SNR S2960-48G",
+        "comment": "0"
+    },
+    {
+        "id": 20,
+        "type": "SNR-S2970G-24S",
+        "comment": "0"
+    },
+    {
+        "id": 21,
+        "type": "SNR S2990G-24Fx\r",
+        "comment": "0"
+    },
+    {
+        "id": 22,
+        "type": "комплект узла\r",
+        "comment": "0"
+    },
+    {
+        "id": 23,
+        "type": "Dlink DES-3028",
+        "comment": "0"
+    },
+    {
+        "id": 24,
+        "type": "Eltex MES1124MB-AC",
+        "comment": null
+    },
+    {
+        "id": 25,
+        "type": "Quidway S2328P-EI-AC",
+        "comment": null
+    },
+    {
+        "id": 26,
+        "type": "ПК",
+        "comment": null
+    },
+    {
+        "id": 27,
+        "type": "UPS",
+        "comment": null
+    },
+    {
+        "id": 28,
+        "type": "UPS Inelt-1000",
+        "comment": null
+    },
+    {
+        "id": 29,
+        "type": "UPS Eltena-1000",
+        "comment": null
+    },
+    {
+        "id": 30,
+        "type": "UPS Inelt-3000",
+        "comment": null
+    },
+    {
+        "id": 31,
+        "type": "UPS SNR Element, 1000 VA",
+        "comment": null
+    },
+    {
+        "id": 32,
+        "type": "Dlink DES-2108",
+        "comment": null
+    },
+    {
+        "id": 33,
+        "type": "UPS IPPON Smart Power PRO 2000",
+        "comment": null
+    }
+]

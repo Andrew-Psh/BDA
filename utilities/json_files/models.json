@@ -1,0 +1,128 @@
+[
+    {
+        "id": 26,
+        "model": "Delta DTM 1212",
+        "manuf": "Delta",
+        "charge": 12,
+        "comment": "\r"
+    },
+    {
+        "id": 27,
+        "model": "Delta Gel 12-55",
+        "manuf": "Delta",
+        "charge": 55,
+        "comment": "\r"
+    },
+    {
+        "id": 28,
+        "model": "Delta HR 12-12",
+        "manuf": "Delta",
+        "charge": 12,
+        "comment": "\r"
+    },
+    {
+        "id": 29,
+        "model": "Delta HRL 12-12",
+        "manuf": "Delta",
+        "charge": 12,
+        "comment": "\r"
+    },
+    {
+        "id": 30,
+        "model": "Delta HR 12-18",
+        "manuf": "Delta",
+        "charge": 18,
+        "comment": "\r"
+    },
+    {
+        "id": 31,
+        "model": "VIM АКБ 12/26",
+        "manuf": "VIM",
+        "charge": 26,
+        "comment": "\r"
+    },
+    {
+        "id": 32,
+        "model": "SNR 12-12",
+        "manuf": "SNR",
+        "charge": 12,
+        "comment": "\r"
+    },
+    {
+        "id": 33,
+        "model": "Delta HR 12-7,2",
+        "manuf": "Delta",
+        "charge": 7,
+        "comment": "\r"
+    },
+    {
+        "id": 34,
+        "model": "Haze Gel HZY12-70",
+        "manuf": "Haze",
+        "charge": 70,
+        "comment": "\r"
+    },
+    {
+        "id": 35,
+        "model": "CSB GP 1272 F2",
+        "manuf": "CSB",
+        "charge": 7,
+        "comment": "\r"
+    },
+    {
+        "id": 36,
+        "model": "Security Force SF 12 12",
+        "manuf": "Security Forse",
+        "charge": 12,
+        "comment": "\r"
+    },
+    {
+        "id": 37,
+        "model": "Security Force SF 12 26",
+        "manuf": "Security Forse",
+        "charge": 26,
+        "comment": "\r"
+    },
+    {
+        "id": 38,
+        "model": "VIM АКБ 12/12 ",
+        "manuf": "VIM",
+        "charge": 12,
+        "comment": "\r"
+    },
+    {
+        "id": 39,
+        "model": "Haze DTM 1226",
+        "manuf": "Haze",
+        "charge": 26,
+        "comment": "\r"
+    },
+    {
+        "id": 40,
+        "model": "Haze HZY12-100",
+        "manuf": "Haze",
+        "charge": 100,
+        "comment": "\r"
+    },
+    {
+        "id": 41,
+        "model": "Delta DTM 1226",
+        "manuf": "Delta",
+        "charge": 26,
+        "comment": "\r"
+    },
+    {
+        "id": 42,
+        "model": "Delta Gel 12-85",
+        "manuf": "Delta",
+        "charge": 85,
+        "comment": "\r"
+    },
+    {
+        "id": 43,
+        "model": "Delta DTM 1207",
+        "manuf": "Delta",
+        "charge": 7,
+        "comment": null
+    }
+]

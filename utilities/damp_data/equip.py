@@ -1,0 +1,31 @@
+table = 'equip'
+fields = ['id', 'type', 'comment']
+data = [
+	(1, 'Dlink DES-3200-28F', '0'),
+	(2, 'Eltex-LTP-4X\r', '0'),
+	(3, 'Eltex-LTP-8X\r', '0'),
+	(4, 'HS2328P\r', '0'),
+	(5, 'Raisecom 2110EA-MA-WP\r', '0'),
+	(7, 'Raisecom 2128EA-MA', '0'),
+	(9, 'Raisecom i2924gf \r', '0'),
+	(11, 'Eltex MES2124F\r', '0'),
+	(15, 'Eltex MES2324FB-AC', '0'),
+	(16, 'QTECH QSW-46-10T-AC-UPS\r', '0'),
+	(17, 'Orion Alpha A28F\r', '0'),
+	(18, 'SNR S2950\r', '0'),
+	(19, 'SNR S2960-48G', '0'),
+	(20, 'SNR-S2970G-24S', '0'),
+	(21, 'SNR S2990G-24Fx\r', '0'),
+	(22, 'комплект узла\r', '0'),
+	(23, 'Dlink DES-3028', '0'),
+	(24, 'Eltex MES1124MB-AC', None),
+	(25, 'Quidway S2328P-EI-AC', None),
+	(26, 'ПК', None),
+	(27, 'UPS', None),
+	(28, 'UPS Inelt-1000', None),
+	(29, 'UPS Eltena-1000', None),
+	(30, 'UPS Inelt-3000', None),
+	(31, 'UPS SNR Element, 1000 VA', None),
+	(32, 'Dlink DES-2108', None),
+	(33, 'UPS IPPON Smart Power PRO 2000', None)
+]

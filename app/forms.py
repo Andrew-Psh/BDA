@@ -35,10 +35,10 @@ import sys
 sys.path.append('/Users/andrej/Documents/Devel/search_field_application/venv/lib/python3.12/site-packages')
 
 from flask_wtf import FlaskForm
-from wtforms import Form, SelectField, StringField, SubmitField, FormField, FileField
+from wtforms import Form, SelectField, StringField, SubmitField, FormField, FileField, IntegerField, DateField
 from wtforms.validators import DataRequired, ValidationError, Length
 from werkzeug.utils import secure_filename
-from app.models import Character, User, Color
+from app.models import Character
 
 
 class DinamicSelectField(FlaskForm):
@@ -49,43 +49,7 @@ class DinamicSelectField(FlaskForm):
     input_field = StringField('', validators=[DataRequired(), Length(min=2, max=50)], render_kw={'placeholder': 'Введите значение'})
     selection_from_db = SelectField('', validate_choice=False, choices=[], render_kw={'placeholder': 'Выберите значение'})    
 
-class AddUser(DinamicSelectField):
-    """
-    Представляет форму для добавления пользователя с несколькими полями.
-    """
-    user = FormField(DinamicSelectField)
-    color = FormField(DinamicSelectField)
-    address = StringField('Введите адрес', validators=[DataRequired()], render_kw={'placeholder': 'Введите адрес'})
 
-    submit = SubmitField('Добавить')    
-
-    def to_dict_field_attr(self):
-        return {
-                'user': {'label': 'Пользователь', 'table_name': 'users'}, 
-                'color': {'label': 'Цвет', 'table_name': 'colors'}
-                } 
-    
-    def to_list_field(self):
-        return [ 
-            {
-            # 'compare_result': self.user.input_field.data == self.user.selection_from_db.data,
-            'field_name': self.user.input_field.name,
-            'field_data': self.user.input_field.data,
-            'table_name': 'users'
-            },
-            {  
-            # 'compare_result': self.color.input_field.data == self.color.selection_from_db.data,
-            'field_name': self.color.input_field.name,
-            'field_data': self.color.input_field.data,
-            'table_name': 'colors'
-            },
-            {
-            # 'compare_result': True,
-            'field_name': self.address.name,
-            'field_data':  self.address.data,
-            'table_name': 'addresses'
-            }
-        ]
 
 class AddCharacter(DinamicSelectField):
     character_name = StringField('Введите персонаж', validators=[DataRequired(), Length(min=3, max=50)], render_kw={'placeholder': 'Введите персонаж'})
@@ -104,7 +68,62 @@ class AddCharacter(DinamicSelectField):
                 'color_name': {'label': 'Цвет', 'table_name': 'colors'},
                 'address': {'label': 'Адрес', 'table_name': 'addresses'}
                 } 
+#####################  #####################     
+
+class CityForm(FlaskForm):
     
+    choose_city = SelectField('City', choices=[], coerce=int)
+    # base_choose_city = SelectFieldBase('Base choose', )
+    comment = StringField('comment', validators=[DataRequired()])
+
+    submit = SubmitField('Sign In')
+
+class EquipmentForm(FlaskForm):  # в разработке
+    name = StringField('Equipment', validators=[DataRequired()])      
+    submit = SubmitField('Sign In')
+
+
+
+
+# class AccForm(FlaskForm):    
+#     id = IntegerField('id', validators=[DataRequired()])
+#     model = SelectField('', validators=[DataRequired()])
+#     search_model = SearchField('Модель', validators=[DataRequired()])
+#     No = StringField('No', validators=[DataRequired()])
+#     d_prod = DateField('Дата продажи', validators=[DataRequired()])
+#     accum_state = IntegerField('Статус')
+#     node = IntegerField('Узел доступа', validators=[DataRequired()])
+#     equip = IntegerField('Оборудование')
+#     d_edit = DateField()
+#     comment = StringField('comment', validators=[DataRequired()])
+
+#     submit = SubmitField('Добавить')
+
+
+
+class StatesForm(FlaskForm):
+    accum_state = StringField('accum_state', validators=[DataRequired()])
+    comment = StringField('comment', validators=[DataRequired()])
+    submit = SubmitField('Sign In')
+
+    
+class AccForm(FlaskForm):    
+    id = IntegerField('id', validators=[DataRequired()])
+    model = StringField('model', validators=[DataRequired()])
+    No = StringField('No', validators=[DataRequired()])
+    d_prod = DateField()
+    accum_state = IntegerField('accum_state')
+    node = IntegerField('node', validators=[DataRequired()])
+    equip = IntegerField('equip')
+    d_edit = DateField()
+    comment = StringField('comment', validators=[DataRequired()])
+
+    submit = SubmitField('Sign In')
+
+
+#####################  #####################     
+
+
     
 
 ##################### U T I L I T E S #####################     

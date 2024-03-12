@@ -16,13 +16,16 @@
     app.config.from_object(DevelopmentConfig)
     db = SQLAlchemy(app)
     
-    from app import routes, models
+    from app import routes, models, history_handlers
     ```
-
+Описание модуля history_handlers:
+    Модуль history_handlers содержит слушателя событий для модели ModelAccum, который автоматически создает записи в таблице History при обновлении объектов.
+    
 Примеры:
     - Инициализация объекта Flask-приложения.
     - Подключение к базе данных с помощью SQLAlchemy.
     - Импорт и использование маршрутов(routes) и моделей(models) для Flask-приложения.
+    - Автоматическое создание и добавление записи в таблицу History при обновлении объектов модели ModelAccum с помощью слушателя событий.
 """
 from flask import Flask
 from config import DevelopmentConfig
@@ -34,4 +37,4 @@ app.config.from_object(DevelopmentConfig)
 db = SQLAlchemy(app)
 
 
-from app import routes, models
+from app import routes, models, history_handlers

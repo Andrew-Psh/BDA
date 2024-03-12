@@ -38,9 +38,9 @@
 
 from app import app, db
 from flask import render_template, url_for, flash, jsonify, request, redirect
-from app.models import User, Color, Character, Address
-from app.forms import JSONFileForm, AddUser, DinamicSelectField, AddCharacter
-from db_loader_and_json.db_loader import load_data_from_json
+from app.models import City, Color, Character, Address
+from app.forms import JSONFileForm, DinamicSelectField, AddCharacter
+from utilities import load_data_from_json
 from jinja2 import Environment, BaseLoader
 from flask import Flask, render_template
 
@@ -62,10 +62,10 @@ def get_model(table_name):
     (User, User.name)
     """
     data = {
-        'users': {'model': User, 'field': User.name}, 
-        'colors': {'model': Color, 'field': Color.name},
-        'addresses': {'model': Address, 'field': Address.location},
-        'characters': {'model': Character, 'field': Character.name}
+        # 'users': {'model': User, 'field': User.name}, 
+        # 'colors': {'model': Color, 'field': Color.name},
+        # 'addresses': {'model': Address, 'field': Address.location},
+        # 'characters': {'model': Character, 'field': Character.name}
         }
     return data[table_name]
 
@@ -96,30 +96,30 @@ def get_choices():
     return jsonify(columns)
 
 
-@app.route('/show-dinamicselectfield', methods=['GET', 'POST'])
-def show_dinamicselectfield():
-    """
-    Демонстрация использования динамических полей выбора в форме и обработка отправки формы.
+        # @app.route('/show-dinamicselectfield', methods=['GET', 'POST'])
+        # def show_dinamicselectfield():
+        #     """
+        #     Демонстрация использования динамических полей выбора в форме и обработка отправки формы.
 
-    Поведение:
-    - Если форма действительна при отправке, flash-сообщения указывают на ее действительность и отображают 
-      введенные данные для динамических полей выбора.
-    - Если форма недействительна, flash-сообщения указывают на то, что форма недействительна, и отображают 
-      введенные данные для динамических полей выбора.
+        #     Поведение:
+        #     - Если форма действительна при отправке, flash-сообщения указывают на ее действительность и отображают 
+        #       введенные данные для динамических полей выбора.
+        #     - Если форма недействительна, flash-сообщения указывают на то, что форма недействительна, и отображают 
+        #       введенные данные для динамических полей выбора.
 
-    Возвращает:
-    Отображает шаблон 'samples/dinamic_select_field.html' с заголовком 'Показать поле' и объектом формы DinamicSelectField.
-    """
-    form = DinamicSelectField()
-    
-    if form.validate_on_submit():
-        flash('Форма валидна')
-        flash('Введены данные Input - {}; Select - {}.'.format(form.input_field.data, form.selection_from_db.data))
-    else:
-        flash('Форма не валидна')
-        flash('Введены данные Input - {}; Select - {}.'.format(form.input_field.data, form.selection_from_db.data))
+        #     Возвращает:
+        #     Отображает шаблон 'samples/dinamic_select_field.html' с заголовком 'Показать поле' и объектом формы DinamicSelectField.
+        #     """
+        #     form = DinamicSelectField()
+            
+        #     if form.validate_on_submit():
+        #         flash('Форма валидна')
+        #         flash('Введены данные Input - {}; Select - {}.'.format(form.input_field.data, form.selection_from_db.data))
+        #     else:
+        #         flash('Форма не валидна')
+        #         flash('Введены данные Input - {}; Select - {}.'.format(form.input_field.data, form.selection_from_db.data))
 
-    return render_template('samples/dinamic_select_field.html', title='Show Field', form=form)
+        #     return render_template('samples/dinamic_select_field.html', title='Show Field', form=form)
 
 
 
@@ -131,122 +131,59 @@ def index():
     return render_template('common/index.html', title='Home')
 
 
-
-@app.route('/show-field', methods=['GET', 'POST'])
-def show_field():
-    '''
-    Отображает составную форму с динамическими полями и обрабатывает отправку формы.
-
-    Поведение:
-    - Отображает составную форму с динамическими полями для ввода пользователем.
-    - При действительной форме после отправки, всплывающие сообщения указывают на действительность и отображают введенные данные для конкретных разделов формы.
-    - В случае недействительности формы, всплывающие сообщения указывают на статус недействительности формы и отображают введенные данные для справки.
-
-    Возвращает:
-    Отображает шаблон 'samples/field.html' с заголовком 'Добавить пользователя', объектом формы AddUser и fields_data для динамических полей.
-    '''
-    form = AddUser()
-    fields_data = form.to_dict_field_attr()
-    
-    if form.validate_on_submit():
-        flash('Форма валидна')
-        flash('Введены данные User Input - {}; Select - {}.'.format(form.user.input_field.data, form.user.selection_from_db.data))
-        flash('Введены данные Color Input - {}; Select - {}.'.format(form.color.input_field.data, form.color.selection_from_db.data))
-        # flash('Address {}'.format(form.address.data))
-    else:
-        flash('Форма не валидна')
-        flash('Введены данные User Input - {}; Select - {}.'.format(form.user.input_field.data, form.user.selection_from_db.data))
-        flash('Введены данные Color Input - {}; Select - {}.'.format(form.color.input_field.data, form.color.selection_from_db.data))
-        # flash('Address {}'.format(form.address.data))
-
-    return render_template('samples/field.html', 
-                            title="Add User", 
-                            form=form, 
-                            fields_data=fields_data
-                            )
-
-@app.route('/add_user', methods=['GET', 'POST'])
-def add_user():
-    form = AddUser()  
-    fields_name = form.to_list_field()
-    fields_data = form.to_dict_field_attr()
-    if form.validate_on_submit(): 
-        for field in fields_name:
-            if not field['compare_result']:
-                model = get_model(field['table_name'])['model']
-                field_name = field['field_name']
-                field_data = field['field_data']  # Получаем фактические данные поля
-                # Создание экземпляра модели 
-                # flash("model: {}, field_name: {}, field_data: {}".format(model, field_name, field_data))
-                        # new_entry = model(**{field_name: field_data})  # Передаем фактические данные в качестве аргумента
-                # flash('new_entry: {}'.format(new_entry))
-                # flash(' в таблицу {} добавлена запись: {}'.format(field['table_name'], new_entry))
-                # # Добавление нового пользователя в базу данных
-                # # db.session.add(new_entry)
-                # # db.session.commit()
-                flash(field)
-            else:
-                flash(field)
-
-        flash('Форма валидна')  
-
-    else:
-        flash('Форма не валидна')
-        flash('Введены данные User Input - {}; Select - {}.'.format(form.user.input_field.data, form.user.selection_from_db.data))
-        flash('Введены данные Color Input - {}; Select - {}.'.format(form.color.input_field.data, form.color.selection_from_db.data))
-        # flash('Address {}'.format(form.address.data))
-
-    return render_template('add_user.html', 
-                           title="Add User", 
-                           form=form, 
-                           fields_data=fields_data 
-                           )
-
-
-@app.route('/add_character', methods=['GET', 'POST'])
-def add_character():
-    form = AddCharacter()
-    # fields_name = form.to_list_field()
-    fields_data = form.to_dict_field_attr()
-    
-
-    if form.validate_on_submit(): 
-        flash(f"Форма {form.__class__.__name__} валидна!")
-        try:
-            character_data = form.character_name.data
-            color_data = form.color_name.input_field.data
-            address_data = form.address.input_field.data
-
-            color_obj = Color.query.filter_by(name=color_data).first()
-            if not color_obj:
-                color_obj = Color(name = color_data)
-                db.session.add(color_obj)
-
-            address_obj = Address.query.filter_by(location=address_data).first()
-            if not address_obj:
-                address_obj = Address(location = address_data)
-                db.session.add(address_obj)
-
-            character_obj = Character.query.filter_by(name=character_data).first()
-            if not character_obj:
-                character_obj =Character(name =character_data)
-                character_obj.colors.append(color_obj) 
-                character_obj.addresses.append(address_obj) 
-                db.session.add(character_obj)
-                db.session.commit()
+        # @app.route('/add_character', methods=['GET', 'POST'])
+        # def add_character():
+        #     form = AddCharacter()
+        #     # fields_name = form.to_list_field()
+        #     fields_data = form.to_dict_field_attr()
             
-            flash("Персонаж {} с любимым цветом {} и адресом {} внесен в БД.".format(character_data, color_data, address_data))
-            return redirect(url_for('add_character'))    
+
+        #     if form.validate_on_submit(): 
+        #         flash(f"Форма {form.__class__.__name__} валидна!")
+        #         try:
+        #             character_data = form.character_name.data
+        #             color_data = form.color_name.input_field.data
+        #             address_data = form.address.input_field.data
+
+        #             color_obj = Color.query.filter_by(name=color_data).first()
+        #             if not color_obj:
+        #                 color_obj = Color(name = color_data)
+        #                 db.session.add(color_obj)
+
+        #             address_obj = Address.query.filter_by(location=address_data).first()
+        #             if not address_obj:
+        #                 address_obj = Address(location = address_data)
+        #                 db.session.add(address_obj)
+
+        #             character_obj = Character.query.filter_by(name=character_data).first()
+        #             if not character_obj:
+        #                 character_obj =Character(name =character_data)
+        #                 character_obj.colors.append(color_obj) 
+        #                 character_obj.addresses.append(address_obj) 
+        #                 db.session.add(character_obj)
+        #                 db.session.commit()
+                    
+        #             flash("Персонаж {} с любимым цветом {} и адресом {} внесен в БД.".format(character_data, color_data, address_data))
+        #             return redirect(url_for('add_character'))    
+                
+        #         except ValueError as e:
+        #             flash(f"Произошла ошибка: {e}")
+        #             raise ValueError('Пользователь не внесен в БД') 
         
-        except ValueError as e:
-            flash(f"Произошла ошибка: {e}")
-            raise ValueError('Пользователь не внесен в БД') 
- 
-    return render_template('add_character.html', 
-                           title="Add Character", 
-                           form=form, 
-                           fields_data=fields_data 
-                           )
+        #     return render_template('add_character.html', 
+        #                            title="Add Character", 
+        #                            form=form, 
+        #                            fields_data=fields_data 
+        #                            )
+
+
+
+@app.route('/cities', methods=['GET', 'POST'])
+def get_table_cities():
+    items = City.query.all()
+    if items:
+        return render_template('from_srv_view_cities.html', title="Cities", items = items)
+    return url_for('index')  
 
 
 

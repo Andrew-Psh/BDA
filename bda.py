@@ -57,9 +57,8 @@
 
 
 from app import app, db
-import os
 
-from app.models import  User, Character, Color
+from app.models import  Accum, Node, Equipment, State, History, ModelAccum, City
 
 @app.shell_context_processor
 def make_shell_context():
@@ -67,9 +66,11 @@ def make_shell_context():
    Запустите оболочку в контексте приложения, используя команду "flask shell".    
    '''
    return {'db': db, 
-           'User': User, 
-           'Character': Character, 
-           'Color': Color, 
-         #   'Address': Address,
-         #   'characters_colors': characters_colors
+            'Accum': Accum, 
+            'Node': Node,
+            'Equipment': Equipment,
+            'State': State,
+            'History': History,
+            'ModelAccum': ModelAccum,
+            'City': City
            }

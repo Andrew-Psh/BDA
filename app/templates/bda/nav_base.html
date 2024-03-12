@@ -1,0 +1,52 @@
+<!-- bda/app/templates/nav_base.html -->
+
+<!-- Блок меню, основа шаблона взята с сайта https://ruseller.com/lessons.php?id=2031&rub=2 -->
+
+<div class="wrapper">
+  <ul class="navigation">
+    <li><a href="{{ url_for('index') }}">Главная страница</a></li>
+    <li>
+      <a href="">Таблицы</a>
+      <ul>
+        <li><a href="{{ url_for('get_table_accums') }}">Аккумуляторы</a></li>
+        <li><a href="{{ url_for('get_table_nodes') }}">Узлы доступа</a></li>
+        <li><a href="{{ url_for('get_table_history') }}">История транзакций</a></li>
+        <li><a href="{{ url_for('get_table_model_acc') }}">Модели аккумуляторов</a></li>        
+        <li><a href="{{ url_for('get_table_equip') }}">Оборудование</a></li>             
+        <li><a href="{{ url_for('get_table_states') }}">Состояния</a></li>        
+        <li><a href="{{ url_for('get_table_cities') }}">Города</a></li>        
+      </ul>
+    </li>
+    <li>
+      <a href="">Таблицы на JS</a>
+      <ul>
+        <li><a href="{{ url_for('get_table_accums_srv') }}">Аккумуляторы</a></li>
+        <li><a href="{{ url_for('get_table_nodes_srv') }}">Узлы доступа</a></li>
+        <li><a href="{{ url_for('get_table_history_srv') }}">История транзакций</a></li>
+        <li><a href="{{ url_for('get_table_model_acc_srv') }}">Модели аккумуляторов</a></li>        
+        <li><a href="{{ url_for('get_table_equip_srv') }}">Оборудование</a></li>             
+        <li><a href="{{ url_for('get_table_states_srv') }}">Состояния</a></li>        
+        <li><a href="{{ url_for('get_table_cities_srv') }}">Города</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="">Добавить запись</a>
+      <ul>
+        <li><a href="{{ url_for('add_accum') }}"> Добавить аккумулятор</a></li>
+        <li><a href="{{ url_for('add_state') }}"> Добавить статус</a></li>
+        <li><a href="{{ url_for('add_equipment') }}"> Добавить запись в equipment</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="">Тестовые страницы</a>
+      <ul>
+        <li><a href="{{ url_for('date_form') }}" title="date_form">date_form</a></li>
+        <li><a href="{{ url_for('child') }}">Тестовые шаблоны</a></li>
+        <li><a href="{{ url_for('new_movie') }}">показать образец формы</a></li>
+
+      </ul>
+    </li>
+    <li><a href="{{ url_for('date_form') }}" title="date_form">date_form</a></li>
+    <div class="clear"></div>
+  </ul>
+</div>   

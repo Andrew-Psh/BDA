@@ -1,0 +1,98 @@
+<!-- bda/app/templates/base_for_table.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='/css/style.css')}}"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="{{ url_for('static', filename='/favicon_io/images/apple-touch-icon.png')}}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="{{ url_for('static', filename='/images/favicon_io/favicon-32x32.png')}}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="{{ url_for('static', filename='/images/favicon_io/favicon-16x16.png')}}"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <link
+      href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: Sans-Serif;
+        font-size: 14px;
+      }
+    </style>
+
+    {% block link_css %} {% endblock link_css %} {% block title -%} {% if title
+    -%}
+    <title>bda - {{ title }}</title>
+    {% else %}
+    <title>bda</title>
+    {% endif -%} {% endblock -%}
+  </head>
+
+  <body>  <!-- <div class="top">
+      </div> -->
+      
+    <!-- Блок меню, основа шаблона взята с сайта https://ruseller.com/lessons.php?id=2031&rub=2 -->
+    <div class="wrapper">
+    
+
+      <ul class="navigation">
+        <li><a href=""><h1>Таблица   {{ table_name }}</h1></a></li>
+        <li><a href="{{ url_for('index') }}">Главная страница</a></li>
+        <li>
+          {% if title == 'Accums' %}
+          <a href="{{ url_for('add_accum') }}"> Добавить аккумулятор</a>
+          {% elif title == 'Nodes' %}
+          <a href="{{ url_for('add_node') }}"> Добавить УД</a>
+
+          {% endif %}
+        </li>
+
+        <li>
+          <a href="">Таблицы на JS</a>
+          <ul>
+            <li><a href="{{ url_for('get_table_accums_srv') }}">Аккумуляторы</a></li>
+            <li><a href="{{ url_for('get_table_nodes_srv') }}">Узлы доступа</a></li>
+            <li><a href="{{ url_for('get_table_history_srv') }}">История транзакций</a></li>
+            <li><a href="{{ url_for('get_table_model_acc_srv') }}">Модели аккумуляторов</a></li>        
+            <li><a href="{{ url_for('get_table_equip_srv') }}">Оборудование</a></li>             
+            <li><a href="{{ url_for('get_table_states_srv') }}">Состояния</a></li>        
+            <li><a href="{{ url_for('get_table_cities_srv') }}">Города</a></li>           
+          </ul>
+        </li>
+
+
+
+        <div class="clear"></div>
+      </ul>
+    </div>
+    <div>
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %}
+    </div>
+    {% block content -%} {% endblock -%}
+  </body>
+</html>
