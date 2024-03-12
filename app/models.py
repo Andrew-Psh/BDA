@@ -293,20 +293,6 @@ class City(db.Model):
             # 'nodes': [node for node in self.nodes_rel.all()]
         }
 
-
- 
-
-
-
-
-   
-
-
-
-
-
-
-
 ##########################    BEGINNING TEMPLATES       #####################################
     
 # промежуточная таблица 'characters_colors' для связи многие ко многим в таблицах 'characters' и 'colors'

@@ -49,15 +49,9 @@
 - Сценарий инициализирует приложение Flask и соединения с базой данных.
 - Загружает переменные окружения из файла .env для конфигурации.
 - Задает контекст оболочки для взаимодействия с моделями в сеансах оболочки Flask.
-
-
-
 """
 
-
-
 from app import app, db
-
 from app.models import  Accum, Node, Equipment, State, History, ModelAccum, City
 
 @app.shell_context_processor
@@ -66,11 +60,11 @@ def make_shell_context():
    Запустите оболочку в контексте приложения, используя команду "flask shell".    
    '''
    return {'db': db, 
-            'Accum': Accum, 
-            'Node': Node,
-            'Equipment': Equipment,
-            'State': State,
-            'History': History,
-            'ModelAccum': ModelAccum,
-            'City': City
+           'Accum': Accum, 
+           'Node': Node,
+           'Equipment': Equipment,
+           'State': State,
+           'History': History,
+           'ModelAccum': ModelAccum,
+           'City': City
            }
