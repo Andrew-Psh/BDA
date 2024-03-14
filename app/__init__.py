@@ -28,12 +28,12 @@
     - Автоматическое создание и добавление записи в таблицу History при обновлении объектов модели ModelAccum с помощью слушателя событий.
 """
 from flask import Flask
-from config import DevelopmentConfig
+from config import ProductionConfig
 from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
-app.config.from_object(DevelopmentConfig)
+app.config.from_object(ProductionConfig)
 db = SQLAlchemy(app)
 
 

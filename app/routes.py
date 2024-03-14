@@ -38,9 +38,9 @@
 
 from app import app, db
 from flask import render_template, url_for, flash, jsonify, request, redirect
-from app.models import City, Color, Character, Address
+from app.models import City, Color, Character, Address, Accum
 from app.forms import JSONFileForm, DinamicSelectField, AddCharacter
-from utilities import load_data_from_json
+from utilities.db_loader import load_data_from_json
 from jinja2 import Environment, BaseLoader
 from flask import Flask, render_template
 
@@ -62,6 +62,7 @@ def get_model(table_name):
     (User, User.name)
     """
     data = {
+
         # 'users': {'model': User, 'field': User.name}, 
         # 'colors': {'model': Color, 'field': Color.name},
         # 'addresses': {'model': Address, 'field': Address.location},

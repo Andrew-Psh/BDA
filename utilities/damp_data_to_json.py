@@ -20,6 +20,7 @@ Steps:
 """
 
 import json
+from datetime import datetime
 from damp_data import cities, nodes, equip, models, states, accs, history
 import os
 
@@ -30,7 +31,7 @@ os.makedirs(json_dir, exist_ok=True)  # Создаем директорию, е�
 files = [cities, nodes, equip, models, states, accs, history]
 
 for file in files:
-    json_data = json.dumps([{file.fields[i]: item[i] for i in range(len(file.fields))} for item in file.data], indent=4, ensure_ascii=False)
+    json_data = json.dumps([{file.fields[i]: item[i] for i in range(1, len(file.fields))} for item in file.data], indent=4, ensure_ascii=False)
     
     # Путь к файлу JSON
     json_path = os.path.join(json_dir, f'{file.table}.json')

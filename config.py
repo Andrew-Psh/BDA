@@ -33,10 +33,11 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY')
-
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, os.environ.get('SQLITE_FILE_NAME'))
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
 class ProductionConfig(Config):
+    # DATABASE_URL='mysql+mysqlconnector://black_cat:sqwerty21p@localhost/dba'
+
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')

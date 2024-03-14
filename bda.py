@@ -1,5 +1,5 @@
 """
-Файл: text_select_field.py
+Файл: bda.py
 
 Описание:
 Этот файл содержит реализацию веб-приложения с использованием Flask для обработки запросов и отображения веб-страниц.
@@ -68,3 +68,5 @@ def make_shell_context():
            'ModelAccum': ModelAccum,
            'City': City
            }
+
+print("Запущено приложение bda.py")

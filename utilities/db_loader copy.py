@@ -18,7 +18,7 @@
 
 from flask import flash
 import json
-from app.models import  Color, Character
+from app.models import Accum, City, Node, Equipment, State, ModelAccum, History
 from app import db  
 import os
 from sqlalchemy.inspection import inspect
@@ -41,15 +41,16 @@ def load_data_from_json(json_file, model_name):
     load_data_from_json('users.json', 'User')
     """
     # Открываем и считываем JSON файл
-    with open(os.path.join('db_loader_and_json', json_file)) as file:
+    with open(os.path.join('utilities/json_files', json_file)) as file:
         data = json.load(file)
-        
-        model_choices = {'Color': Color, 'Character': Character}  # Словарь для выбора модели по имени
+        # model_choices = {'Color': Color, 'Character': Character}  # Словарь для выбора модели по имени
+
+        model_choices = {'Accum': Accum, 'City': City, 'Node': Node, 'Equipment': Equipment, 'State': State, 'ModelAccum': ModelAccum, 'History': History}  # Словарь для выбора модели по имени
         model = model_choices.get(model_name)  # Получение соответствующей модели
 
         if model:
             # Получение списка имен столбцов из модели
-            column_names = [column.key for column in inspect(model).c if column.key != 'id']            
+            column_names = [column.key for column in inspect(model).c if column.key != 'id']             
 
             # Проверяем соответствие столбцов модели данным из JSON
             for item_data in data:

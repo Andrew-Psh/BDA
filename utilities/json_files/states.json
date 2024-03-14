@@ -1,16 +1,13 @@
 [
     {
-        "id": 1,
         "state": "в работе",
         "comment": "0"
     },
     {
-        "id": 2,
         "state": "склад",
         "comment": "0"
     },
     {
-        "id": 3,
         "state": "утиль",
         "comment": "0"
     }

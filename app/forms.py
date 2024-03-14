@@ -38,7 +38,7 @@ from flask_wtf import FlaskForm
 from wtforms import Form, SelectField, StringField, SubmitField, FormField, FileField, IntegerField, DateField
 from wtforms.validators import DataRequired, ValidationError, Length
 from werkzeug.utils import secure_filename
-from app.models import Character
+from app.models import Accum, City, Node, Equipment, State, ModelAccum, History, Character
 
 
 class DinamicSelectField(FlaskForm):
@@ -135,7 +135,7 @@ class JSONFileForm(FlaskForm):
     """
     # DEFAULT_CHOICE = [('', 'Выбери модель')]  # Значение по умолчанию для model_choices
 
-    model_choices = [('User', 'User'), ('Color', 'Color'), ('Character', 'Character')]  # Добавляем DEFAULT_CHOICE к вариантам выбора модели
+    model_choices = [('Accum', 'Accum'), ('City', 'City'), ('Node', 'Node'), ('Equipment', 'Equipment'), ('State', 'State'), ('ModelAccum', 'ModelAccum'), ('History', 'History')]   # Добавляем DEFAULT_CHOICE к вариантам выбора модели
     # model_choices = [('', 'Выбери  модель'), ('User', 'User'), ('Color', 'Color' )]  # Создание списка вариантов для выбора модели
     
     file = FileField('Выберите JSON файл', validators=[DataRequired()], render_kw={"webkitdirectory": True, "directory": "db_loader_and_json"})
