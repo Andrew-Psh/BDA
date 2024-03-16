@@ -38,8 +38,8 @@
 
 from app import app, db
 from flask import render_template, url_for, flash, jsonify, request, redirect
-from app.models import City, Color, Character, Address, Accum
-from app.forms import JSONFileForm, DinamicSelectField, AddCharacter
+from app.models import City, Node, Color, Character, Address, Accum
+from app.forms import AddNode, JSONFileForm, DinamicSelectField, AddCharacter
 from utilities.db_loader import load_data_from_json
 from jinja2 import Environment, BaseLoader
 from flask import Flask, render_template
@@ -62,6 +62,8 @@ def get_model(table_name):
     (User, User.name)
     """
     data = {
+        'sities': {'model': City, 'field': City.city}, 
+        'nodes': {'model': Node, 'field': Node.street}
 
         # 'users': {'model': User, 'field': User.name}, 
         # 'colors': {'model': Color, 'field': Color.name},
@@ -92,9 +94,12 @@ def get_choices():
     table_name = request.args.get('table_name')    
     data = db.session.query(get_model(table_name)['field']).all()
     columns = [name[0] for name in data]
-    print("columns = ", columns)  # for logging
+    # Убрать повторения из списка columns и вернуть уникальные значения
+    unique_columns = list(set(columns))
 
-    return jsonify(columns)
+    print("unique_columns = ", unique_columns)  # for logging
+
+    return jsonify(unique_columns)
 
 
         # @app.route('/show-dinamicselectfield', methods=['GET', 'POST'])
@@ -130,6 +135,50 @@ def get_choices():
 def index():
     # return "Hello, World!"
     return render_template('common/index.html', title='Home')
+
+@app.route('/add_node', methods=['GET', 'POST'])
+def add_node():
+    form = AddNode()
+    fields_data = form.to_dict_field_attr()
+    
+    if form.validate_on_submit(): 
+        flash(f"Форма {form.__class__.__name__} валидна!")
+        try:
+            city_data = form.city_name.input_field.data
+            city_obj = City.query.filter_by(city=city_data).first()
+            if not city_obj:
+                city_obj = City(city = city_data)
+                db.session.add(city_obj)
+                db.session.commit()
+            existing_city = City.query.filter_by(city=city_data).first()
+
+            node_obj = Node(
+                street = form.street_name.input_field.data, 
+                house = form.house.data, 
+                place = form.place.data, 
+                city_rel = existing_city, 
+                comment = form.comment.data
+                )
+            node_obj.addr = f'{node_obj.street}, \
+                              {node_obj.house}, \
+                              {node_obj.place}'  # Формирование адреса на основе других полей
+
+            db.session.add(node_obj)
+            db.session.rollback()  # Отменить все неподтвержденные изменения
+            # db.session.commit()
+            
+            flash("Узел связи в городе {}, по адресу {} внесен в БД.".format(city_data, node_obj.addr))
+            return redirect(url_for('add_node'))    
+         
+        except ValueError as e:
+            flash(f"Произошла ошибка: {e}")
+            raise ValueError('Узел связи не внесен в БД') 
+
+    return render_template('forms/add_node.html', 
+                           title="Add Node", 
+                           form=form, 
+                           fields_data=fields_data 
+    )
 
 
         # @app.route('/add_character', methods=['GET', 'POST'])

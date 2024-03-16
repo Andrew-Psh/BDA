@@ -27,7 +27,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 inputField.setAttribute('autocomplete', 'off'); // Отключение автозаполнения поля
                 var tableName = inputField.parentElement.getAttribute('data-table-name'); // Получение имени таблицы из родительского элемента поля ввода
                 var selectField = event.target.parentElement.querySelector('.form-select'); // Получение соседнего поля выбора, если оно присутствует
-                
+                console.log('tableName:', tableName)
+                console.log('inputField:', inputField.name)
+                console.log('selectField:', selectField)
+
                 // Отображение поля выбора, если оно было найдено
                 if (selectField) {
                     selectField.style.display = 'block';

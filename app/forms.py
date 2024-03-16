@@ -36,7 +36,7 @@ sys.path.append('/Users/andrej/Documents/Devel/search_field_application/venv/lib
 
 from flask_wtf import FlaskForm
 from wtforms import Form, SelectField, StringField, SubmitField, FormField, FileField, IntegerField, DateField
-from wtforms.validators import DataRequired, ValidationError, Length
+from wtforms.validators import DataRequired, ValidationError, Length, Optional
 from werkzeug.utils import secure_filename
 from app.models import Accum, City, Node, Equipment, State, ModelAccum, History, Character
 
@@ -48,6 +48,26 @@ class DinamicSelectField(FlaskForm):
     '''
     input_field = StringField('', validators=[DataRequired(), Length(min=2, max=50)], render_kw={'placeholder': 'Введите значение'})
     selection_from_db = SelectField('', validate_choice=False, choices=[], render_kw={'placeholder': 'Выберите значение'})    
+
+
+
+
+class AddNode(DinamicSelectField):
+    # address = StringField('Адрес', validators=[DataRequired(), Length(min=3, max=50)], render_kw={'placeholder': 'Адрес'})
+    city_name = FormField(DinamicSelectField)
+    street_name = FormField(DinamicSelectField)
+    # street =  StringField('Улица', validators=[DataRequired(), Length(min=3, max=50)], render_kw={'placeholder': 'Улица'})
+    house = StringField('Номер дома', validators=[DataRequired(), Length(max=50)], render_kw={'placeholder': 'Номер дома'})
+    place = StringField('Место', validators=[DataRequired(), Length(min=3, max=50)], render_kw={'placeholder': 'Место'})
+    comment = StringField('Комментарии', validators=[Optional(), Length(max=50)], render_kw={'placeholder': 'Комментарии'})
+
+    submit = SubmitField('Добавить')    
+
+    def to_dict_field_attr(self):
+        return {
+                'city_name': {'label': 'Город', 'table_name': 'sities'},
+                'street_name': {'label': 'Улица', 'table_name': 'nodes'}
+                } 
 
 
 
