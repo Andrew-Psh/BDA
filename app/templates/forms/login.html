@@ -1,0 +1,45 @@
+    <!-- app/templates/delete_confirmation.html -->
+
+    {% extends "common/base.html" %} 
+
+    
+    {% block content %}
+        <div class="container">
+            <div class="flashed-messages-column">
+                <!-- Всплывающие сообщения будут здесь -->
+                {% block flashed_messages %}
+                    {% include 'common/flashed_messages.html' %}
+                {% endblock flashed_messages %}
+            </div>
+            <div class="form-column">    
+                <form method="POST" id="formDinamic" class="wtform" novalidate>
+                    {{ form.csrf_token }}
+                    <div class="form-fields">
+
+                        <h2>Войдите в систему:</h2> 
+                        <br>
+                        
+                        {{ form.username.label }}
+                        {{ form.username(size=32) }}
+                        {% for error in form.username.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                    
+                        {{ form.password.label }}
+                        {{ form.password(size=32) }}
+                        {% for error in form.password.errors %}
+                        <span style="color: red;">[{{ error }}]</span>
+                        {% endfor %}
+                        
+                        <div class="remember-me-container">
+                            {{ form.remember_me() }} 
+                            {{ form.remember_me.label }}
+                        </div>
+                        
+                        {{ form.submit() }}                  
+                    
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endblock content %}

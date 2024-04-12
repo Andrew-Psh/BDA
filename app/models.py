@@ -1,7 +1,9 @@
 # app/models.py
 
-from app import db
-from datetime import datetime
+from app import db, login
+from datetime import datetime, timezone
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class City(db.Model):
@@ -33,6 +35,12 @@ class City(db.Model):
             'comment': self.comment,
             # 'nodes': [node for node in self.nodes_rel.all()]
         }
+    def get_columns():
+      return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "city", 'name': "Город", 'sort': True  },
+            { 'id': "comment", 'name': "Комментарии", 'sort': False }
+            ]
     
 
 class Node(db.Model):
@@ -59,12 +67,7 @@ class Node(db.Model):
                                  )  # MANY accums_rel
   
     def __repr__(self):
-        return f"<Модель 'Node': \
-            __tablename__ {self.__tablename__}, \
-            id {self.id}, addr {self.addr}, \
-            city {self.city}, street {self.street}, \
-            house {self.house}, place {self.place}, \
-            comment {self.comment}>"
+        return f"<Модель 'Node': __tablename__ {self.__tablename__}, id {self.id}, addr {self.addr}, city {self.city_rel.city}, comment {self.comment}, street {self.street}, house {self.house}, place {self.place}>"
   
     def to_dict(self):
         return {
@@ -76,7 +79,16 @@ class Node(db.Model):
             'place': self.place,
             'comment': self.comment
         }
-
+    def get_columns():
+      return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "city", 'name': "Город" },
+            { 'id': "addr", 'name': "Адрес", 'hidden': True  },
+            { 'id': "street", 'name': "Улица" },
+            { 'id': "house", 'name': "Дом" },
+            { 'id': "place", 'name': "Место" },
+            { 'id': "comment", 'name': "Комментарии", 'sort': False }
+            ]
 class Accum(db.Model):
     '''
     Модель таблицы accs (аккумуляторы)
@@ -113,8 +125,8 @@ class Accum(db.Model):
     equips_rel = db.relationship('Equipment', 
                                  back_populates="accum_rel", 
                                  cascade="save-update", 
-                                 uselist=True, 
-                                 )  # связь на уровне моделей MANY equips_rel
+                                 uselist=False, 
+                                 )  # связь на уровне моделей один accum
 
     def __repr__(self):
         return f"<Модель 'Accum': \
@@ -131,15 +143,27 @@ class Accum(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'model': self.model, 
+            'model': self.model_rel.model, 
             'No': self.No, 
             'd_prod': self.d_prod, 
-            'state': self.state, 
-            'node': self.node, 
-            'equip': self.equip, 
+            'state': self.states_rel.state, 
+            'node': self.node_rel.addr, 
+            'equip': self.equips_rel.type, 
             'd_edit': self.d_edit, 
             'comment': self.comment
         }
+    def get_columns():
+      return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "model", 'name': "Модель" },
+            { 'id': "No", 'name': "No", 'hidden': True  },
+            { 'id': "d_prod", 'name': "Дата изготовления" },
+            { 'id': "state", 'name': "Статус" },
+            { 'id': "node", 'name': "Узел связи" },
+            { 'id': "equip", 'name': "Оборудование" },
+            { 'id': "d_edit", 'name': "Дата последнего изменения" },
+            { 'id': "comment", 'name': "Комментарии", 'sort': False }
+            ]
 
 
 class State(db.Model):
@@ -172,7 +196,12 @@ class State(db.Model):
             'state': self.state,
             'comment': self.comment
         }
-
+    def get_columns():
+        return [
+                { 'id': "id", 'name': "id", 'hidden': True },
+                { 'id': "state", 'name': "Статус" },
+                { 'id': "comment", 'name': "Комментарии", 'sort': False }
+                ]
 
 
 class ModelAccum(db.Model):
@@ -210,7 +239,14 @@ class ModelAccum(db.Model):
             'comment': self.comment,
             # 'accums': [accum for accum in self.accums_rel] 
         }
-    
+    def get_columns():
+        return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "model", 'name': "Модель" },
+            { 'id': "manuf", 'name': "Производитель" },
+            { 'id': "charge", 'name': "Емкость Ah" },
+            { 'id': "comment", 'name': "Комментарии", 'sort': False }
+            ]
 
 
 
@@ -225,8 +261,8 @@ class Equipment(db.Model):
     comment =db.Column(db.String(50))
     accum_rel = db.relationship('Accum', 
                                 back_populates = 'equips_rel', 
-                                uselist=False, 
-                                )  # связь на уровне моделей один `accum`
+                                uselist=True, 
+                                )  # связь на уровне моделей много `accum`
 
     def __repr__(self):
         return f"<Модель 'Equipment': \
@@ -241,7 +277,12 @@ class Equipment(db.Model):
             'type': self.type,
             'comment': self.comment
         }
-
+    def get_columns():
+        return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "type", 'name': "Оборудование" },
+            { 'id': "comment", 'name': "Комментарии", 'sort': False }
+            ]
 
 class History(db.Model):
     '''
@@ -277,7 +318,8 @@ class History(db.Model):
                     equip {self.equip}, \
                     d_edit {self.d_edit}, \
                     comment {self.comment}, \
-                    timestamp={self.timestamp}>"
+                    timestamp={self.timestamp} \
+                >"
 
     def to_dict(self):
         return {
@@ -291,35 +333,138 @@ class History(db.Model):
             'equip': self.equip,
             'comment': self.comment
         }
-
-##########################    BEGINNING TEMPLATES       #####################################
+    def get_columns():
+        return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "acc_id", 'name': "acc_id", 'hidden': True },
+            { 'id': "model", 'name': "модель", 'sort': True },
+            { 'id': "No", 'name': "No", 'sort': True },
+            { 'id': "d_prod", 'name': "d_prod", 'sort': True },
+            { 'id': "state", 'name': "Статус", 'sort': True },
+            { 'id': "node", 'name': "Узел доступа", 'sort': True },
+            { 'id': "equip", 'name': "Оборудование", 'sort': True },
+            { 'id': "comment", 'name': "Комментарии", 'sort': True },
+            ]
     
-# промежуточная таблица 'characters_colors' для связи многие ко многим в таблицах 'characters' и 'colors'
-characters_colors = db.Table('characters_colors',
-    db.Column('character_id', db.Integer, db.ForeignKey('characters.id'), primary_key=True),
-    db.Column('color_id', db.Integer, db.ForeignKey('colors.id'), primary_key=True)
-)
 
-class Character(db.Model):
-    __tablename__ = 'characters'
+class LogCity(db.Model):
+    '''Модель таблицы `log_cities` 
+    '''
+    __tablename__ = 'log_cities'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
+    log_id = db.Column(db.Integer)
+    log_city = db.Column(db.String(50))
+    log_comment = db.Column(db.String(50))
+    timestamp = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    user_action = db.Column(db.Integer, db.ForeignKey('users_action.id'))
+    user = db.Column(db.Integer, db.ForeignKey('users.id'))
 
-    addresses = db.relationship('Address', backref='owner', lazy='dynamic')
-    colors = db.relationship('Color', secondary=characters_colors, backref='characters', lazy='dynamic')
 
-class Color(db.Model):
-    __tablename__ = 'colors'
+    def __repr__(self):
+        return f"<Лог БД 'LogCity': \
+            __tablename__ {self.__tablename__}, \
+            id {self.id}, \
+            log_id {self.log_id}, \
+            log_city {self.log_city}, \
+            log_comment {self.log_comment}, \
+            user {self.user}, \
+            user_action {self.user_action}, \
+            timestamp {self.timestamp} \
+            >"
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'log_id': self.log_id,
+            'log_city': self.log_city,
+            'log_comment': self.log_comment,
+            'user': User.query.get(self.user).username if self.user else None,
+            'user_action': self.users_action.action,
+            'timestamp': self.timestamp
+        }
+
+    def get_columns():
+      return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "log_id", 'name': "city_id ", 'sort': True },
+            { 'id': "log_city", 'name': "Города ", 'sort': True },
+            { 'id': "log_comment", 'name': "Комментарии ", 'sort': True },
+            {'id': "user", 'name': "Пользователь", 'sort': True },
+            { 'id': "user_action", 'name': "Действие", 'sort': True },
+            { 'id': "timestamp", 'name': "Дата и время изменений ", 'sort': True }
+  
+              ]
+
+
+
+class UserAction(db.Model):
+    '''Модель таблицы `users_action` '''
+    __tablename__ = 'users_action'
+
+    id = db.Column(db.Integer, primary_key=True)
+    action = db.Column(db.String(20), nullable=False, default='0')
+    log_city_rel = db.relationship("LogCity", backref="users_action")
+
+    def __repr__(self):
+        return f"<Модель 'UserAction': \
+            __tablename__ {self.__tablename__}, \
+            id {self.id},  \
+            action {self.action}>"
     
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'action': self.action
+        }
+    def get_columns():
+        return [
+                { 'id': "id", 'name': "id", 'hidden': True },
+                { 'id': "action", 'name': "Действие" },
+                ]
+
+
+@login.user_loader
+def load_user(id):
+    return db.session.get(User, int(id))
+
+class User(UserMixin, db.Model):
+    '''Модель таблицы `users_action` '''
+    __tablename__ = 'users'
+
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50))
+    username = db.Column(db.String(64), index=True, unique=True)
+    email = db.Column(db.String(120), index=True, unique=True)
+    password_hash = db.Column(db.String(256))
+    log_city_rel = db.relationship("LogCity", backref="users")
 
-class Address(db.Model):
-    __tablename__ = 'addresses'  # Наименование таблицы для адресов
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
 
-    id = db.Column(db.Integer, primary_key=True)
-    location = db.Column(db.String(100))
-    character_id = db.Column(db.Integer, db.ForeignKey('characters.id'))
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
 
-##########################          END TEMPLATES       #####################################
+
+    def __repr__(self):
+        return f"<Модель 'User': \
+            __tablename__ {self.__tablename__}, \
+            id {self.id},  \
+            username {self.username}, \
+            email {self.email}, \
+            password_hash {self.password_hash}>"
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email, 
+            'password_hash': self.password_hash
+        }
+    def get_columns():
+        return [
+                { 'id': "id", 'name': "id", 'hidden': True },
+                { 'id': "username", 'name': "Пользователь" },
+                { 'id': "email", 'name': "Email" },
+                { 'id': "password_hash", 'name': "Пароль" }
+                ]

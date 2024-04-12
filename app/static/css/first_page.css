@@ -1,0 +1,85 @@
+/* Стили для страницы */
+body {
+    background: #f6f4f4;
+    /* font-family: 'Raleway', sans-serif;
+    font-weight: 400; */
+    font-size: 14px;
+    line-height: 26px;
+    color: black;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif; 
+    font-weight: 100; /* Нормальный (Regular) вес шрифта */
+    font-style: italic; /* Курсивное начертание шрифта */
+
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 500px ); /* Два столбца с равной шириной */
+    grid-template-rows: repeat(2, 200px );
+    grid-gap: 20px; /* Расстояние между блоками */
+    justify-content: center; /* Выравнивание по центру горизонтально */
+    margin: 30px; /* Отступы от боковых краев страницы */
+
+
+}
+
+.grid-item {
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+    margin: 10px; /* Дополнительные отступы между блоками */
+    align-items: stretch; /* Растягиваем блоки до высоты самого высокого */
+
+}
+
+.main-title {
+    text-align: center;
+    padding-bottom: 15px;
+}
+
+.column-title {
+    text-align: center;
+}
+
+.link-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+}
+
+.nav-link:hover {
+    color: #007bff;
+}
+
+#link-show {
+    column-count: 2; /* Разделение на две колонки */
+    column-gap: 20px; /* Расстояние между колонками */
+}
+
+
+#link-show .nav-link {
+    display: block;
+}
+
+#block-show:hover {
+    background-color: rgba(200, 252, 210, 0.4); /* Пастельный цвет фона при наведении */
+}
+
+#block-add:hover {
+    background-color: rgba(248, 237, 164, 0.4); /* Пастельный цвет фона при наведении */
+}
+
+#block-change:hover {
+    background-color: rgba(192, 233, 249, 0.4); /* Пастельный цвет фона при наведении */
+}
+
+#block-move:hover {
+    background-color: rgba(244, 183, 234, 0.4); /* Пастельный цвет фона при наведении */
+}

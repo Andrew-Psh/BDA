@@ -52,7 +52,7 @@
 """
 
 from app import app, db
-from app.models import  Accum, Node, Equipment, State, History, ModelAccum, City
+from app.models import  Accum, Node, Equipment, State, History, ModelAccum, City, LogCity, User
 
 @app.shell_context_processor
 def make_shell_context():
@@ -66,7 +66,9 @@ def make_shell_context():
            'State': State,
            'History': History,
            'ModelAccum': ModelAccum,
-           'City': City
+           'City': City,
+           'LogCity': LogCity,
+           'User': User,
            }
 
 print("Запущено приложение bda.py")

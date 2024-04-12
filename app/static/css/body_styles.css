@@ -16,6 +16,11 @@
 	/* box-sizing: border-box; */
 } 
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,200,300,100,500,700,600,800,900);
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/static/fonts/Montserrat-Regular.ttf') format('truetype');
+    /* Убедитесь, что путь к файлу шрифта указывает на соответствующий корневой каталог вашего проекта */
+}
 
 h1 {
 	font-size: 24px;
@@ -80,11 +85,8 @@ body {
 	flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
 	padding: 5px;
 }  
+/*  */
 
-.footer {
-	flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
-	padding: 20px;
-  }
 .content {
 	margin-top: 20px;
 }

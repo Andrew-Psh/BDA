@@ -1,39 +1,38 @@
-<!-- bda/app/templates/common/nav_base.html -->
+<!-- bda/app/templates/common/nav_add_entry.html -->
 
-<!-- Блок меню, основа шаблона взята с сайта https://ruseller.com/lessons.php?id=2031&rub=2 -->
-
-<!-- bda/app/templates/common/nav_base.html -->
-
-<!-- Блок меню, основа шаблона взята с сайта https://ruseller.com/lessons.php?id=2031&rub=2 -->
 
 <div class="menu"> <!-- Внешний контейнер -->
   <div class="main-items">
-  <ul class="navigation">
-    <li>
-      <a href="">Таблицы</a>
-      <ul>
-        <li><a href="{{ url_for('get_table_cities') }}">Города</a></li>    
-      </ul>
-    </li> 
-      <li> 
-      <a href="">Формы</a>
-      <ul>
-        <li><a href="{{ url_for('add_node') }}">Добавить узел связи</a></li>    
- 
-      </ul>
+    <ul class="navigation">
+      <li>
+        <a href="{{ url_for('index') }}">Главная</a>
+      </li>
+      <li>
+        {% if link_buttom %}
+            <a href="{{ url_for(link_buttom) }}">{{ buttom_name }}</a>
+        {% else %}
+            <!-- Кнопка не будет отображаться, так как нет значений для link_buttom и buttom_name -->
+        {% endif %}
+      </li>
+      <div class="clear"></div>
+    </ul>
+  </div>
+  <div class="additional-items">
+    <li class="login-registration-item">
+        {% if registration_button %}
+            <a href="{{ url_for(link_button) }}">{{ button_name }}</a>
+        {% else %}
+            <!-- Кнопка не будет отображаться, так как нет значений для link_button и button_name -->
+        {% endif %}
     </li>
-    <li>
-      <a href="">Добавить данные в БД </a>
-        <ul>
-          <li><a href="{{ url_for('load_json') }}">Добавить данные json </a></li>
-        </ul>
-
+    <li class="login-registration-item">
+        {% if current_user.is_anonymous %}
+            <a class="login" href="{{ url_for('login') }}">Войти</a>
+            <a class="registration" href="{{ url_for('register') }}">Зарегистрироваться</a>
+        {% else %}
+            <a class="user-info" href="{{ url_for('profile') }}">Вход выполнен как: {{ current_user.username }}</a>
+            <a class="logout-link" href="{{ url_for('logout') }}">Выйти</a>
+        {% endif %}
     </li>
-    <div class="clear"></div>
-  </ul>
-</div>
-<div class="additional-items">
-  <li><a  class="about_the_project" href="{{ url_for('index') }}">О проекте</a></li>
-  
 </div>
 </div>

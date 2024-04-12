@@ -1,0 +1,38 @@
+    <!-- app/templates/delete_confirmation.html -->
+
+    {% extends "common/base.html" %} 
+
+    
+    {% block content %}
+        <div class="container">
+            <div class="flashed-messages-column">
+                <!-- Всплывающие сообщения будут здесь -->
+                {% block flashed_messages %}
+                    {% include 'common/flashed_messages.html' %}
+                {% endblock flashed_messages %}
+            </div>
+            <div class="form-column">    
+                <form method="POST" class="wtform">
+                    {{ form.csrf_token }}
+            
+                    <h2>Проверьте данные записи и подтвердите удаление:</h2>
+                    <br>
+                    <div class="viewing_before_deleting">
+                        <p><strong>{{  table_name }}</strong></p>
+                        {% for pair in field_value_pairs %}
+                            <p><strong class="word-spacing-increased">
+                                {% for elem in pair %}
+                                    {{ elem }} 
+                                {% endfor %}
+                            </strong></p>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        {{ form.csrf_token }}
+                        {{ form.submit_confirm(class="btn btn-danger btn-confirm") }}
+                        {{ form.submit_cancel(class="btn btn-danger btn-cancel") }}
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endblock content %}

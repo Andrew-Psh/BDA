@@ -78,17 +78,6 @@ form.wtform input[type="submit"] {
   cursor: pointer;
 }
 
-#user, #color {
-  width: 100%; /* Устанавливаем ширину таблицы */
-  margin: 0px auto; /* Центрируем таблицы по горизонтали с небольшим отступом сверху и снизу */
-  border: 0px solid #ccc; /* Добавляем границы таблицам */
-  border-collapse: collapse; /* Сворачиваем границы ячеек */
-}
-
-#user label, #color label {
-  display: block; /* Размещаем метки на новой строке */
-  font-weight: bold; /* Делаем метки жирными */
-}
 
 .form-container-right {
   float: right;
@@ -104,4 +93,95 @@ form.wtform input[type="submit"] {
 
 .CSRF-Token-Field {
   display: none;
+}
+
+/* Стилизация цифрового поля ввода */
+form.wtform .form-fields input[type="number"] {
+  font-size: 20px; /* Увеличиваем размер шрифта */
+  width: 20%; /* Устанавливаем ширину до 90% для заполнения пустого пространства */
+  box-sizing: border-box; /* Учитываем ширину границы и отступов */
+  margin-bottom: 10px; /* Создаем отступ между полями */
+}
+
+
+.viewing_before_deleting {
+  border: 1px solid black; /* Добавляет рамку вокруг элемента */
+  padding: 10px; /* Добавляет внутренний отступ вокруг содержимого */
+  background-color: #f2f2f2; /* Цвет фона */
+  border: 1px solid #ccc; /* Границы таблицы */
+  border-radius: 10px; /* Закругляем углы таблицы */
+}
+
+.viewing_before_deleting p {
+  margin-bottom: 0px; /* Регулирует межстрочное расстояние между абзацами */
+  margin-top: 0px;
+}
+
+
+
+.form-column {
+  display: flex;
+  justify-content: space-between; /* Разместить элементы по краям */
+}
+
+.btn-confirm {
+  float: left; /* Выравнивание кнопки подтверждения по левому краю */
+}
+
+.btn-cancel {
+  float: right; /* Выравнивание кнопки отмены по правому краю */
+}
+
+.form-column {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Центрировать элемензы по вертикали */
+}
+
+.buttons-group {
+  display: flex;
+  gap: 20px; /* Отступ между кнопками */
+}
+
+.form-controls {
+  flex-grow: 0; /* Занимать оставшееся пространство между кнопками и полями */
+  display: flex;
+  justify-content: space-between; /* Распределить элементы по краям */
+}
+
+.btn-confirm,
+.btn-cancel {
+  width: 45%; /* Установить одинаковую ширину для кнопок */
+}
+
+
+* Стилизация полей ввода формы */
+form.wtform .form-fields input[type="text"],
+form.wtform .form-fields input[type="password"],  /* Добавляем стили и для поля ввода пароля */
+form.wtform .form-fields select {
+  font-size: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+}
+
+/* Расположение на одной строке */
+form.wtform .form-fields input[type="text"],
+form.wtform .form-fields input[type="password"] {
+  display: inline-block;  /* Размещаем элементы в строку */
+  width: calc(45% - 5px); /* Устанавливаем ширину поля с отступом между ними */
+  margin-right: 10px;  /* Добавляем отступ между полями */
+}
+
+.remember-me-container {
+  display: flex; /* Размещаем элементы внутри контейнера в строку */
+  align-items: center; /* Выравнивание по центру по вертикали */
+  gap: 10px; /* Отступ между элементами */
+}
+/* Общий стиль для полей ввода */
+input[type="text"],
+input[type="password"],
+input[type="date"] {
+    height: 25px; /* Устанавливаем желаемую высоту поля ввода */
+    margin-bottom: 10px; /* Добавляем отступ снизу между полями */
 }

@@ -25,11 +25,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (event.target.classList.contains('form-input')) {
                 var inputField = event.target; // Получение поля ввода
                 inputField.setAttribute('autocomplete', 'off'); // Отключение автозаполнения поля
-                var tableName = inputField.parentElement.getAttribute('data-table-name'); // Получение имени таблицы из родительского элемента поля ввода
+                var tableField = inputField.parentElement.getAttribute('data-table-field'); // Получение имени таблицы из родительского элемента поля ввода
                 var selectField = event.target.parentElement.querySelector('.form-select'); // Получение соседнего поля выбора, если оно присутствует
-                console.log('tableName:', tableName)
+                console.log('tableField:', tableField)
                 console.log('inputField:', inputField.name)
-                console.log('selectField:', selectField)
+                console.log('selectField:', selectField.name)
 
                 // Отображение поля выбора, если оно было найдено
                 if (selectField) {
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // Выполнение запроса на сервер для получения значений выбора и их присвоение
-                fetchDataFromServerAndAssign(inputField, selectField, tableName);
+                fetchDataFromServerAndAssign(inputField, selectField, tableField);
             }
         });
     }
@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', function() {
  * Функция для выполнения запроса на сервер и присвоения значений выбора.
  * @param {HTMLElement} inputField - Поле ввода
  * @param {HTMLElement} selectField - Поле выбора
- * @param {string} tableName - Название таблицы для запроса на сервер
+ * @param {string} tableField - Название таблицы для запроса на сервер
  */
-function fetchDataFromServerAndAssign(inputField, selectField, tableName) {
+function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
     var currentChoices = []; // Создаем пустой массив для текущих выбранных значений
     
-    fetch(`/get_choices?table_name=${tableName}`) // Запрашиваем список значений на сервере
+    fetch(`/get_choices?table_field=${tableField}`) // Запрашиваем список значений на сервере
         .then(function(response) {
         if (!response.ok) { 
             throw new Error('Ошибка: ' + response.status);

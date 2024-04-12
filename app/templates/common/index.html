@@ -1,7 +1,50 @@
 <!-- app/templates/common/index.html -->
 
-{% extends "common/base.html"  %} {% block content %}
-<div>
-<h1>Страница заглушка - {{ title }}</h1>
+{% extends "common/base.html"  %} 
+{% block content %}
+
+<br>
+<h1 class="main-title">Программа учета аккумуляторов - {{ title }}</h1>
+
+<div class="grid-container">
+    <div class="grid-item" id="block-show">
+        <h2 class="column-title">Посмотреть</h2>
+            <ul class="link-list" id="link-show">
+                <li><a class="nav-link" href="{{ url_for('get_table_cities') }}">Города</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_nodes_srv') }}">Узлы связи</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_accs') }}">Аккумуляторы</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_equip') }}">Оборудование</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_states') }}">Статус</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_models') }}">Модели аккумуляторов</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_history') }}">История</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_log_cities') }}">Log cities</a></li>
+
+            </ul>
+    </div>
+    <div class="grid-item" id="block-add">
+        <h2 class="column-title">Добавить</h2>
+            <ul class="link-list" id="link-add">
+                <li><a class="nav-link" href="{{ url_for('add_accum') }}">Новый аккумулятор</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_node') }}">Новый узел связи</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_model') }}">Новую модель аккумулятора</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_city') }}">Новый город</a></li>
+
+            </ul>
+    </div>
+    <div class="grid-item" id="block-move">
+        <h2 class="column-title">Переместить, изменить</h2>
+            <ul class="link-list" id="link-move">
+                <li><a class="nav-link" href="{{ url_for('add_accum') }}">Переместить аккумулятор</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_node') }}">Редактировать узел связи</a></li>
+
+            </ul>
+    </div>
+    <div class="grid-item" id="block-change">
+        <h2 class="column-title">Удалить</h2>
+            <ul class="link-list" id="link-change">
+                <li><a class="nav-link" href="{{ url_for('delete_city') }}">Запись из таблицы Города</a></li>
+            </ul>
+    </div>
 </div>
+
 {% endblock %}

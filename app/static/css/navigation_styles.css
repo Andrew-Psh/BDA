@@ -22,7 +22,7 @@
   border-bottom: solid 1px #b1afaf;
   color: #4c4c4d;
   align-items: center; /* Выравниваем по центру вертикально */
-  margin-top: -px; /* Расстояние от верхнего края */
+  margin-top: -10px; /* Расстояние от верхнего края */
   border: solid 1px #fff;
   box-shadow:  0px -2px 3px -1px rgba(0, 0, 0, 1);
 }
@@ -134,4 +134,43 @@
   border-radius: 0 0 5px 5px; 
 }
 
-/* Конец блока навигация */
+
+
+
+/* Дополнительные стили для основных элементов и подменю */
+.main-items, .additional-items {
+  display: flex;
+  margin-right: 20px; /* Уменьшаем отступ между элементами справа */
+}
+
+.additional-items {
+  margin-left: auto;
+  float: right;
+  margin-right: 20px; /* Увеличиваем отступ между элементами "Войти" и "Зарегистрироваться" */
+  margin-top: 0px;
+}
+
+.additional-items li {
+  margin-right: 20px; /* Добавляем отступ между элементами списка внутри дополнительных элементов */
+}
+.login,
+.user-info {
+  margin-right: 20px; /* Создает зазор между элементами */
+ 
+  /* Дополнительные стили по вашему усмотрению */
+}
+
+.logout-link {
+  color: #FF0000; /* Цвет ссылки Logout */
+  /* Дополнительные стили по вашему усмотрению */
+}
+
+
+.login,
+.registration,
+.user-info,
+.logout-link {
+  font-size: 12px;
+  font-weight: bold; /* Делает текст жирным */
+  margin-bottom: 50px; /* Создает одинаковый отступ между элементами */
+}

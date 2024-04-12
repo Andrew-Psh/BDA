@@ -1,4 +1,4 @@
-<!-- app/templates/add_node.html -->
+<!-- app/templates/add_city.html -->
 <!-- в файле base.html в head подключен скрипт    
     <script src="{{ url_for('static', filename='js/dinamic_select_field.js') }}"></script>
  -->
@@ -15,7 +15,7 @@
     </div>
     <div class="form-column">
         
-        <form method="POST" id="formDinamic" action="{{ url_for('add_node') }}" class="wtform">
+        <form method="POST" id="formDinamic" action="{{ url_for('add_city') }}" class="wtform">
             {{ form.csrf_token }}
      
             <!-- Наличие поля   {{ form.input_field(class="form-group-hidden-field", value="данные для валидации поля") }} 
@@ -25,7 +25,7 @@
                 add_manuf = FormField(DinamicSelectField) -->
   
                 {{ form.input_field(class="CSRF-Token-Field", value="данные для валидации поля") }}
-                {% set exceptions_list = ['csrf_token', 'submit', 'input_field', 'selection_from_db', 'house', 'place', 'comment'] %}
+                {% set exceptions_list = ['csrf_token', 'submit', 'input_field', 'selection_from_db', 'comment'] %}
 
                 <div class="form-fields">
                     <div class="child-form-fields">
@@ -49,9 +49,7 @@
                     {% endfor %}
     
                     </div>
-
-                    {{ form.house.label }}{{ form.house }}
-                    {{ form.place.label }}{{ form.place }}
+                    
                     {{ form.comment.label }}{{ form.comment }}
 
 

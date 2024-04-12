@@ -30,11 +30,18 @@
 from flask import Flask
 from config import ProductionConfig
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
 
 app = Flask(__name__)
 app.config.from_object(ProductionConfig)
 db = SQLAlchemy(app)
+login = LoginManager(app)
+login.login_view = 'login'
+
+from app import models
+from app.routes import view_pages, view_tables, data_request_server, data_entry_functions, data_deletion_functions, data_modification_functions
+from app.listener_functions import listenCity
 
 
-from app import routes, models, history_handlers
+

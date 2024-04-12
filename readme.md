@@ -136,3 +136,7 @@ data = db.session.query(YourModelName).filter(YourModelName.column == 'value').a
 
 ## Контакты
 Дополнительная информация для связи или обратной связи.
+
+
+# валидаци email в  WTForm
+ pip install "wtforms[email]"
