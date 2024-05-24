@@ -1,28 +1,28 @@
-    <!-- app/templates/delete_confirmation.html -->
+    <!-- app/templates/forms.login.html -->
 
     {% extends "common/base.html" %} 
 
     
     {% block content %}
-        <div class="container">
-            <div class="flashed-messages-column">
-                <!-- Всплывающие сообщения будут здесь -->
-                {% block flashed_messages %}
-                    {% include 'common/flashed_messages.html' %}
-                {% endblock flashed_messages %}
-            </div>
-            <div class="form-column">    
+    <div class="form-small-in-center">    
+        <!-- <div class="container">
+            <div class="form-column">     -->
                 <form method="POST" id="formDinamic" class="wtform" novalidate>
                     {{ form.csrf_token }}
                     <div class="form-fields">
+                    <!-- <div class="form-column"> -->
 
                         <h2>Войдите в систему:</h2> 
                         <br>
-                        
+                        {% if messages %}
+                                {% for message in messages %}
+                                    <p class="error">{{ message }}</p>  
+                                {% endfor %}  
+                        {% endif %}
                         {{ form.username.label }}
-                        {{ form.username(size=32) }}
+                        {{ form.username(size=32, class='username') }}
                         {% for error in form.username.errors %}
-                        <span style="color: red;">[{{ error }}]</span>
+                        <span class="error">[{{ error }}]</span>
                         {% endfor %}
                     
                         {{ form.password.label }}
@@ -40,6 +40,7 @@
                     
                     </div>
                 </form>
-            </div>
-        </div>
+            <!-- </div>
+        </div> -->
+    </div>
     {% endblock content %}

@@ -1,4 +1,12 @@
-/* app/static/css/style_gridjs.css */
+/**
+* Файл: app/static/css/style_gridjs.css
+ * Автор: Андрей Пшеничный
+ * Дата: 13 Февраля 2024
+ *
+ * Название: Стили для таблиц GridJS
+ * Версия: 1.0
+ * Описание: Этот файл содержит стили для таблиц GridJS
+ */
 
 .gridjs-footer button,
 .gridjs-head button{
@@ -403,3 +411,8 @@ th.gridjs-th:last-child{
 .gridjs-pages {
     display: one; 
 }
+
+.icon-checkmark {
+    font-size: 8px; /* Размер шрифта для значков */
+  }
+  

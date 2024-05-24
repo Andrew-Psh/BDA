@@ -1,0 +1,80 @@
+<!-- app/templates/admin/edit_user.html -->
+
+    {% extends "common/base.html" %} 
+
+    
+    {% block content %}
+        <div class="container">
+            <div class="table-column">
+
+                <div id="table" query-filter="{{ query_filter }}"></div>
+                <script src="{{ url_for('static', filename='js/gridInitializer.js') }}"></script>
+            </div>
+            <div class="form-column">    
+                <form method="POST" id="formDinamic" class="wtform" novalidate>
+                    {{ form.csrf_token }}
+                    <div class="form-fields">
+
+                        <h2>редактирование пользователя:</h2> 
+                        <br>
+                        
+                        <div>
+                    
+                            <div class="input-and-Label">
+                                {{ form.username(class='username') }}
+                                {{ form.username.label }}
+                            </div>
+                            <div>
+                                {% for error in form.username.errors %}
+                                    <span class="error">[{{ error }}]</span>
+                                {% endfor %}
+                            </div>
+                            
+                            <div class="input-and-Label">
+                                {{ form.email(class='email')}}
+                                {{ form.email.label }}
+                            </div>
+                            <div>    
+                                {% for error in form.email.errors %}
+                                <span class="error">[{{ error }}]</span>
+                                {% endfor %}                                
+                            </div>
+
+                            <table class="table-with-padding">
+                                <tr>
+                                    <td>
+                                        <div class="checkbox-container">
+                                            {{ form.is_admin(class_='checkbox-input is_admin') }}
+                                            {{ form.is_admin.label }}
+                                        </div>
+                                        <div>   
+                                            {% for error in form.is_admin.errors %}
+                                            <span class="error">[{{ error }}]</span>
+                                            {% endfor %}  
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="checkbox-container">
+                                            {{ form.admin_password_reset(class='checkbox-input') }}
+                                            {{ form.admin_password_reset.label }}
+                                        <div>   
+                                            {% for error in form.admin_password_reset.errors %}
+                                            <span class="error">[{{ error }}]</span>
+                                            {% endfor %}  
+                                        </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            {{ form.submit }}       {{ form.cancel }}                  
+                        </div>
+                         
+                 </div>
+                             
+                    </div>
+                </form>
+            </div>
+        </div>
+    {% endblock content %}

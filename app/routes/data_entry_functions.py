@@ -2,7 +2,8 @@ from app import app, db
 from flask import render_template, url_for, flash, redirect
 from app.models import Accum
 from app.forms import AddNode, AddModel, AddAccum, AddCity
-from app.models import City, Node, Accum
+from app.models import City, Node, Accum, ModelAccum
+import json
 
 
 @app.route('/add_accum', methods=['GET', 'POST'])
@@ -10,8 +11,8 @@ def add_accum():
     '''вывод формы "AddAccum" '''
 
     form = AddAccum()
-    fields_data = form.to_dict_field_attr()
-    print('in add_(): fields_data =', fields_data)
+    fields_attr = form.to_dict_fields_attr()
+    print('in add_(): fields_attr =', fields_attr)
     if form.validate_on_submit(): 
         flash(f"Форма {form.__class__.__name__} валидна!")
         try:
@@ -45,7 +46,7 @@ def add_accum():
     return render_template('forms/add_accum.html', 
                            title="Add Accum", 
                            form=form, 
-                           fields_data=fields_data, 
+                           fields_attr=fields_attr,
                            link_buttom=link_buttom,
                            buttom_name=buttom_name                           
     )
@@ -56,8 +57,8 @@ def add_node():
     '''вывод формы "AddNode" '''
 
     form = AddNode()
-    fields_data = form.to_dict_field_attr()
-    print('in add_node(): fields_data =', fields_data)
+    fields_attr = form.to_dict_fields_attr()
+    print('in add_node(): fields_data =', fields_attr)
     if form.validate_on_submit(): 
         flash(f"Форма {form.__class__.__name__} валидна!")
         try:
@@ -98,7 +99,7 @@ def add_node():
     return render_template('forms/add_node.html', 
                            title="Add Node", 
                            form=form, 
-                           fields_data=fields_data,
+                           fields_attr=fields_attr,
                            link_buttom=link_buttom,
                            buttom_name=buttom_name
     )
@@ -109,18 +110,18 @@ def add_model():
     '''вывод формы "AddModel" '''
 
     form = AddModel()
-    fields_data = form.to_dict_field_attr()
-    print("in @app.route(/add_model) fields_data =", fields_data)
+    fields_attr = form.to_dict_fields_attr()
+    print("in @app.route(/add_model) fields_data =", fields_attr)
     if form.validate_on_submit(): 
         flash(f"Форма {form.__class__.__name__} валидна!")
         try:
-            model_obj = form(
+            model_obj = ModelAccum(
                 model = form.add_model.input_field.data, 
                 manuf = form.add_manuf.input_field.data, 
                 charge = form.add_charge.data, 
                 comment = form.comment.data
                 )
-    
+
             db.session.add(model_obj)
             db.session.rollback()  # Отменить все неподтвержденные изменения
             # db.session.commit()
@@ -138,7 +139,7 @@ def add_model():
     return render_template('forms/add_model.html', 
                            title="Add ModelAcc", 
                            form=form, 
-                           fields_data=fields_data, 
+                           fields_attr=fields_attr,
                            link_buttom=link_buttom,
                            buttom_name=buttom_name                           
     )
@@ -146,11 +147,22 @@ def add_model():
 
 @app.route('/add_city', methods=['GET', 'POST'])
 def add_city():
-    '''вывод формы "AddCity" '''
+    # вывод таблицы "cities"
+
+    table_config  = {
+        "table_label": "Города",
+        "model_name": City.__name__,
+        # "query_conditions_columns": conditions_columns
+    }
+    table_config_str = json.dumps(table_config)  # Преобразование в строку JSON
+
+
+    # Вывод формы "AddCity"
 
     form = AddCity()
-    fields_data = form.to_dict_field_attr()
-    print('in add_node(): fields_data =', fields_data)
+    fields_attr = form.to_dict_fields_attr()
+    print('in add_city(): fields_attr =', fields_attr)
+
     if form.validate_on_submit(): 
         flash(f"Форма {form.__class__.__name__} валидна!")
         try:
@@ -159,13 +171,14 @@ def add_city():
             city_obj = City.query.filter_by(city=city_data).first()
             if not city_obj:
                 city_obj = City(city = city_data,
-                                comment= city_comment)
+                                comment = city_comment)
                 db.session.add(city_obj)
                 # db.session.rollback()
                 db.session.commit()
                 flash("Город {}, внесен в БД.".format(city_data))
 
             else:
+                db.session.rollback()
                 flash("Город {}, уже есть в БД.".format(city_data))
             return redirect(url_for('add_city'))    
          
@@ -175,11 +188,12 @@ def add_city():
 
     link_buttom = 'get_table_cities'
     buttom_name = 'Города'
-
     return render_template('forms/add_city.html', 
                            title="Add City", 
                            form=form, 
-                           fields_data=fields_data,
+                           fields_attr=fields_attr,
                            link_buttom=link_buttom,
-                           buttom_name=buttom_name
+                           buttom_name=buttom_name,
+                           query_filter = table_config_str
+
     )

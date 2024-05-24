@@ -35,7 +35,7 @@ import sys
 sys.path.append('/Users/andrej/Documents/Devel/search_field_application/venv/lib/python3.12/site-packages')
 
 from flask_wtf import FlaskForm
-from wtforms import Form, SelectField, StringField, SubmitField, FormField, FileField, IntegerField, DateField, PasswordField, BooleanField
+from wtforms import Form, SelectField, StringField, SubmitField, FormField, FileField, IntegerField, DateField, PasswordField, BooleanField, RadioField,  HiddenField  
 from wtforms.validators import DataRequired, ValidationError, Length, Optional, Email, EqualTo
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -59,27 +59,30 @@ class AddCity(DinamicSelectField):
     submit = SubmitField('Добавить')    
     
 
-    def to_dict_field_attr(self):
+
+    def to_dict_fields_attr(self):
         return {
-                'city_name': {'label': 'Город', 'table_field': 'cities.city'},
-                } 
+            'city_name': {
+                'label': 'Город',
+                'model_name': 'City',
+                'model_field_name': 'city'
+                },
+            }
+    
 
 class DeleteCity(DinamicSelectField):
     
-    city = FormField(DinamicSelectField)
-
-    # city = StringField("Удалить запись из таблицы 'cities'", validators=[Optional(), Length(max=50)], render_kw={'placeholder': 'Удалить запись'})
-
+    city_name = FormField(DinamicSelectField)
     submit = SubmitField('Удалить')    
     
-
-    def to_dict_field_attr(self):
-        return {
-                'city': {'label': 'Город', 'table_field': 'cities.city'},
-                } 
-
-
-
+    def to_dict_fields_attr(self):
+            return {
+                'city_name': {
+                    'label': 'Город',
+                    'model_name': 'City',
+                    'model_field_name': 'city'
+                    },
+                }
 
 class AddNode(DinamicSelectField):
     city_name = FormField(DinamicSelectField)
@@ -91,11 +94,19 @@ class AddNode(DinamicSelectField):
     submit = SubmitField('Добавить')    
     
 
-    def to_dict_field_attr(self):
+    def to_dict_fields_attr(self):
         return {
-                'city_name': {'label': 'Город', 'table_field': 'cities.city'},
-                'street_name': {'label': 'Улица', 'table_field': 'nodes.street'}
-                } 
+            'city_name': {
+                'label': 'Город',
+                'model_name': 'City',
+                'model_field_name': 'city'
+            },
+            'street_name': {
+                'label': 'Улица',
+                'model_name': 'Node',
+                'model_field_name': 'street'
+            },
+        }
 
 
 class AddModel(DinamicSelectField):
@@ -106,11 +117,19 @@ class AddModel(DinamicSelectField):
 
     submit = SubmitField('Добавить')    
 
-    def to_dict_field_attr(self):
+    def to_dict_fields_attr(self):
         return {
-                'add_model': {'label': 'Модель', 'table_field': 'models.model'},
-                'add_manuf': {'label': 'Производитель', 'table_field': 'models.manuf'}
-                } 
+                'add_model': {
+                        'label': 'Модель',
+                        'model_name': 'ModelAccum',
+                        'model_field_name': 'model'
+                },
+                'add_manuf': {
+                        'label': 'Производитель',
+                        'model_name': 'ModelAccum',
+                        'model_field_name': 'manuf'
+                },
+        } 
 
 
 class AddAccum(DinamicSelectField):
@@ -130,19 +149,30 @@ class AddAccum(DinamicSelectField):
         if self.add_model.input_field.data not in [choice[0] for choice in field.selection_from_db.choices]:
             raise ValidationError('Выбранное значение не существует в базе данных')
 
-
-    def to_dict_field_attr(self):
+    def to_dict_fields_attr(self):
         return {
-                'add_model': {'label': 'Модель', 'table_field': 'models.model'},
-                'add_state': {'label': 'Статус', 'table_field': 'states.state'},
-                'add_node': {'label': 'Узел связи', 'table_field': 'nodes.addr'},
-                'add_equip': {'label': 'Оборудование', 'table_field': 'equip.type'}
+                'add_model': {
+                            'label': 'Модель',
+                            'model_name': 'ModelAccum',
+                            'model_field_name': 'model'
+                    },
+                    'add_state': {
+                            'label': 'Состояние',
+                            'model_name': 'State',
+                            'model_field_name': 'state'
+                    },
+                    'add_node': {
+                            'label': 'Узел связи',
+                            'model_name': 'Node',
+                            'model_field_name': 'addr'
+                    },
+                    'add_equip': {
+                            'label': 'Оборудование',
+                            'model_name': 'Equipment',
+                            'model_field_name': 'type'
+                    },
                 } 
  
-
-
-
-
 class ConfirmationForm(FlaskForm):
     submit_confirm = SubmitField('Подтвердить')
     submit_cancel = SubmitField('Отменить')
@@ -150,17 +180,18 @@ class ConfirmationForm(FlaskForm):
 class LoginForm(FlaskForm):
     username = StringField('Введите имя', validators=[DataRequired()])
     password = PasswordField('Введите пароль', validators=[DataRequired()])
-
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
+
 
 class UserRegistrationForm(FlaskForm):
     username = StringField('Введите имя', validators=[DataRequired()])
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Введите пароль', validators=[DataRequired()])
     password2 = PasswordField('Подтвердите  пароль', validators=[DataRequired(), EqualTo('password')])
+    is_admin = BooleanField('Администратор')
 
-    submit = SubmitField('Войти')
+    submit = SubmitField('Создать пользователя')
 
     def validate_username(self, username):
 
@@ -169,6 +200,18 @@ class UserRegistrationForm(FlaskForm):
         #     User.username == username.data))
         if user is not None:
             raise ValidationError('Please use a different username.')
+        
+    def validate_is_admin(self, is_admin):
+        is_admin_value = is_admin.data  # Получаем фактическое значение is_admin из формы
+        if is_admin.data:
+            if current_user.is_anonymous:
+                is_admin_exists = User.query.filter_by(is_admin=True, is_active=True).first()
+                if is_admin_exists:
+                    raise ValidationError(f'Уже есть активные администраторы в системе, доступ к установке статуса администратора ограничен (is_admin: {is_admin.data})')
+            elif current_user.is_admin:
+                pass
+            else:
+                raise ValidationError(f'У вас недостаточно прав доступа для изменения статуса администратора ({self.username} is_admin: {is_admin.data})')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
@@ -180,10 +223,164 @@ class UserRegistrationForm(FlaskForm):
 class ChangePassword(FlaskForm):
     old_password = PasswordField('Старый пароль',  validators=[DataRequired()])
     password = PasswordField('Новый пароль', validators=[DataRequired()])
-    password2 = PasswordField('Подтвердите новый пароль', validators=[DataRequired(), EqualTo('password')])
+    password2 = PasswordField('Подтвердите новый пароль', validators=[DataRequired()]) # validators=[DataRequired(), EqualTo('password')]
 
     submit = SubmitField('Изменить пароль')
 
     def validate_old_password(self, old_password):
         if not check_password_hash(current_user.password_hash, old_password.data):
             raise ValidationError('Введите действующий пароль.')
+        
+ 
+class AdminUserEditForm(DinamicSelectField):
+    username = FormField(DinamicSelectField) 
+    user_id = StringField('ID', validators=[DataRequired()])
+    new_username = StringField('Логин', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    status =  RadioField('Выберите опцию:', choices= [('archive', 'Архив'), ('active', 'Активный пользователь')], default='active')
+    is_admin = BooleanField('Администратор', default=False)
+    admin_password_reset = BooleanField('Сброс пароля')
+    autocomplete = 'disabled'
+    
+    submit = SubmitField('Применить')
+    cancel = SubmitField('Отменить')    
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        # user = db.session.scalar(db.select(User).where(
+        #     User.email == email.data))
+        if user is not None:
+            raise ValidationError('Please use a different email address.')
+    
+    def validate_new_username(self, new_username):
+        user = User.query.filter_by(username=new_username.data).first()
+        # user = db.session.scalar(db.select(User).where(
+        #     User.username == new_usename.data))
+        if user is not None:
+            raise ValidationError('Please use a different usename.')
+       
+    def to_dict_fields_attr(self):
+        return {
+                'username': {
+                    'label': 'Выбрать пользователя', 
+                    'model_name': User.__name__, 
+                    'model_field_name': 'username' 
+                },
+        } 
+
+class AdminUserEditForm(DinamicSelectField):
+    username = FormField(DinamicSelectField) 
+    user_id = StringField('ID', validators=[DataRequired()])
+    new_username = StringField('Логин', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    status =  RadioField('Выберите опцию:', choices= [('archive', 'Архив'), ('active', 'Активный пользователь')], default='active')
+    is_admin = BooleanField('Администратор', default=False)
+    admin_password_reset = BooleanField('Сброс пароля')
+    autocomplete = 'disabled'
+    
+    submit = SubmitField('Применить')
+    cancel = SubmitField('Отменить')    
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+        # user = db.session.scalar(db.select(User).where(
+        #     User.email == email.data))
+        if user is not None:
+            raise ValidationError('Please use a different email address.')
+    
+    def validate_new_username(self, new_username):
+        user = User.query.filter_by(username=new_username.data).first()
+        # user = db.session.scalar(db.select(User).where(
+        #     User.username == new_usename.data))
+        if user is not None:
+            raise ValidationError('Please use a different usename.')
+       
+    def to_dict_fields_attr(self):
+        return {
+                'username': {
+                    'label': 'Выбрать пользователя', 
+                    'model_name': User.__name__, 
+                    'model_field_name': 'username' 
+                },
+        } 
+
+
+class SelectUserToUpdateForm(DinamicSelectField):
+    user_to_update = FormField(DinamicSelectField) 
+    send_for_editing = SubmitField('Редактировать')
+    send_to_archive = SubmitField('В архив')
+
+    def to_dict_fields_attr(self):
+        return {
+                'user_to_update': {
+                    'label': 'Выбрать пользователя', 
+                    'model_name': User.__name__, 
+                    'model_field_name': 'username' 
+                },
+        } 
+class RestoreUserFromArchiveForm(DinamicSelectField):
+    user_to_restore = FormField(DinamicSelectField) 
+    submit = SubmitField('восстановить из архива')
+    cancel = SubmitField('Отменить')    
+    def to_dict_fields_attr(self):
+        return {
+                'user_to_restore': {
+                    'label': 'Выбрать пользователя', 
+                    'model_name': User.__name__, 
+                    'model_field_name': 'username' 
+                },
+        } 
+    
+class EditUserForm(FlaskForm):
+    original_username = HiddenField()  # Поле для хранения начального логина пользователя
+    original_email = HiddenField()  # Поле для хранения начального email пользователя
+    # original_is_admin = HiddenField() 
+    # original_admin_password_reset = HiddenField() 
+
+    username = StringField('Логин', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    status =  RadioField('Выберите опцию:', choices= [('archive', 'Архив'), ('active', 'Активный пользователь')], default='active')
+    is_admin = BooleanField('Администратор', default=False)
+    admin_password_reset = BooleanField('Сброс пароля')
+    autocomplete = 'disabled'
+    submit = SubmitField('Применить')
+    cancel = SubmitField('Отменить')    
+
+    def validate_form(self):
+
+        if not super(EditUserForm, self).validate():
+            """ метод проверяет, прошла ли форма валидацию с помощью метода validate()
+                из родительского класса формы (super(EditUserForm, self).validate()). 
+                Если форма не прошла валидацию, метод возвращает False.
+            """
+            return False
+        
+        username = self.username.data
+        print('Проверка валидности формы StringField')
+        print(' self.username.data',  self.username.data)
+        print('self.original_username.data:', self.original_username.data)
+        email = self.email.data
+        # is_admin = self.is_admin.data
+        # admin_password_reset = self.admin_password_reset.data
+        if username != self.original_username.data:
+            user = User.query.filter_by(username=username).first()
+            if user is not None:
+                self.username.errors.append('Please use a different username.')
+                return False
+
+        if email != self.original_email.data:
+            user = User.query.filter_by(email=email).first()
+            if user is not None:
+                self.email.errors.append('Please use a different email address.')
+                return False
+            
+        return True
+       
+    def to_dict_fields_attr(self):
+        return {
+                'username': {
+                    'label': 'Выбрать пользователя', 
+                    'model_name': User.__name__, 
+                    'model_field_name': 'username' 
+                },
+        } 

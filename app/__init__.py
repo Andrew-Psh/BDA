@@ -31,17 +31,29 @@ from flask import Flask
 from config import ProductionConfig
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-
+from flask_mail import Mail
+from . import decorators
 
 app = Flask(__name__)
 app.config.from_object(ProductionConfig)
 db = SQLAlchemy(app)
 login = LoginManager(app)
 login.login_view = 'login'
+mail = Mail(app)  # Инициализация расширения Flask-Mail
+
 
 from app import models
-from app.routes import view_pages, view_tables, data_request_server, data_entry_functions, data_deletion_functions, data_modification_functions
+from app.routes import view_pages
+from app.routes import view_tables
+from app.routes import user_functions
+from app.routes import data_request_server 
+from app.routes import data_entry_functions
+from app.routes import data_deletion_functions
+from app.routes import data_modification_functions
+
 from app.listener_functions import listenCity
+from app.listener_functions import listenUser
+
 
 
 

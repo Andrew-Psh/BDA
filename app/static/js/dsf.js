@@ -25,12 +25,19 @@ document.addEventListener('DOMContentLoaded', function() {
             if (event.target.classList.contains('form-input')) {
                 var inputField = event.target; // Получение поля ввода
                 inputField.setAttribute('autocomplete', 'off'); // Отключение автозаполнения поля
-                var tableField = inputField.parentElement.getAttribute('data-table-field'); // Получение имени таблицы из родительского элемента поля ввода
+                var modelName = inputField.parentElement.getAttribute('model-name'); // Получение имени модели из родительского элемента поля ввода
+                var modelFieldName = inputField.parentElement.getAttribute('model-field-name'); // Получение имени поля модели из родительского элемента поля ввода
                 var selectField = event.target.parentElement.querySelector('.form-select'); // Получение соседнего поля выбора, если оно присутствует
-                console.log('tableField:', tableField)
+                var includedDataString =  inputField.parentElement.getAttribute('included-data');
+                var includedDataObject = JSON.parse(includedDataString)
+
+                console.log('modelFieldName:', modelFieldName)
+                console.log('modelName:', modelName)
                 console.log('inputField:', inputField.name)
                 console.log('selectField:', selectField.name)
+                console.log('includedDataObject:', typeof includedDataObject)
 
+            
                 // Отображение поля выбора, если оно было найдено
                 if (selectField) {
                     selectField.style.display = 'block';
@@ -39,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 // Выполнение запроса на сервер для получения значений выбора и их присвоение
-                fetchDataFromServerAndAssign(inputField, selectField, tableField);
+                fetchDataFromServerAndAssign(inputField, selectField, modelName, modelFieldName, includedDataObject);
             }
         });
     }
@@ -49,12 +56,14 @@ document.addEventListener('DOMContentLoaded', function() {
  * Функция для выполнения запроса на сервер и присвоения значений выбора.
  * @param {HTMLElement} inputField - Поле ввода
  * @param {HTMLElement} selectField - Поле выбора
- * @param {string} tableField - Название таблицы для запроса на сервер
+ * @param {string} modelName - Название модели  для запроса на сервер
+ * @param {string} modelFieldName - Название поля модели  для запроса на сервер
+ * @param {object} includedDataObject - Значение поля для отбора данных при  для запросе на сервер    
  */
-function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
-    var currentChoices = []; // Создаем пустой массив для текущих выбранных значений
+function fetchDataFromServerAndAssign(inputField, selectField, modelName, modelFieldName, includedDataObject) {
+    var currentChoices = []; // Создаем пустой массив для текущих выбранных значений  &included_data=${JSON.stringify(includedData)
     
-    fetch(`/get_choices?table_field=${tableField}`) // Запрашиваем список значений на сервере
+    fetch(`/get_choices?model_name=${modelName}&model_field_name=${modelFieldName}&included_data=${JSON.stringify(includedDataObject)}`) // Запрашиваем список значений на сервере  &data_selection=${dataSelection}
         .then(function(response) {
         if (!response.ok) { 
             throw new Error('Ошибка: ' + response.status);
@@ -63,7 +72,7 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
         })
         .then(function(data) {
             var choices = data; // Получаем список значений
-            // console.log('get_choices => ' + data);
+            console.log('get_choices => ' + data);
             var value = inputField.value.toLowerCase(); // Получаем значение поля ввода и приводим его к нижнему регистру
             selectField.innerHTML = ''; // Очищаем список выбора значений
             choices.forEach(function(choice) {
@@ -75,7 +84,6 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
                 currentChoices.push(choice); // Добавляем текущее значение в массив текущих выбранных значений
             } 
             });
-
             
             // Код для управления размером поля выбора
             if (value !== '' && currentChoices.length > 0) {
@@ -83,12 +91,17 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
             } else {
               selectField.style.display = 'none'; // Скрываем поле выбора значений
             };
+                     
             // присваиваем полю inputField значение выбора из selectField
             selectField.addEventListener('change', function() {
-              inputField.value = selectField.value;
-            });
-      
-           // -----------   изменяем стандартное поведение клавиш   -----------  
+                // Присваиваем значение выбора из selectField полю inputField
+                inputField.value = selectField.value;
+
+                 
+              });
+          
+          
+           // -----------   изменяем стандартное поведение клавиш    -----------  
 
                                 // ---- для полей inputField   ---- 
 
@@ -103,6 +116,10 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
                     selectField.selectedIndex = 0; // выбираем индех первого значения
                     selectField.focus(); // Переводим фокус на поле выбора значений
                 }
+              }else if(event.key === 'Enter') {// Событие для клавиши 'Escape'
+                console.log('Нажата клавиша "Enter"')
+                selectField.style.display = 'none'; // Скрываем поле выбора
+
               }else if(event.key === 'Escape') {// Событие для клавиши 'Escape'
                 selectField.style.display = 'none'; // Скрываем поле выбора значений
               }else if(event.key === 'Tab') {// Событие для клавиши 'Tab'
@@ -118,6 +135,7 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
                     inputField.value = selectField.value; // Присваиваем значение из поля выбора полю ввода
                     inputField.focus(); // Переводим фокус на поле ввода
                     selectField.style.display = 'none'; // Скрываем поле выбора
+                    fillFormFields(inputField, selectField, currentChoices, modelName, modelFieldName);
                 }else if(event.key === 'Escape') {// Событие для клавиши 'Escape'
                     selectField.style.display = 'none'; // Скрываем поле выбора значений
                     inputField.focus(); // Переводим фокус на поле ввода
@@ -138,6 +156,8 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
               selectField.value = selectField.value; // Обновляем значение поля выбора
               selectField.style.display = 'none'; // Скрываем поле выбора
               inputField.focus(); // Переводим фокус на поле ввода
+              fillFormFields(inputField, selectField, currentChoices, modelName, modelFieldName);
+
             });                   
         })
         .catch(function(error) {
@@ -145,3 +165,75 @@ function fetchDataFromServerAndAssign(inputField, selectField, tableField) {
             console.log('Error:', error);
         });
 };
+
+
+// Функция заполнения полей ввода данными (запись из таблицы) полученными с сервера из БД
+function fillFormFields(inputField, selectField, currentChoices, modelName, modelFieldName) {
+ // Проверяем является ли текущая форма формой для редактирования
+ var editFormNameAttr = inputField.parentElement.getAttribute('edit-form-name');
+
+ if (editFormNameAttr) {
+   // Если  это форма для редактирования дополнительно получаем атрибут динамического поля editFormName
+   var editFormName = editFormNameAttr.trim(); 
+
+ }
+ if (editFormName) {
+     fetch(`/get_data_from_db?chosen_value=${inputField.value}&`+ 
+   `model_name=${modelName}&` + 
+   `model_field_name=${modelFieldName}&` +
+   `form_name=${editFormName}`)
+   .then(response => response.json())
+   .then(function(jsonData) {
+       console.log("Получены данные jsonData:", jsonData);
+       
+       let editFormTag = document.querySelector('.edit-form');
+       let dinamicFieldFormTag = document.querySelector('.child-form-fields');
+       dinamicFieldFormTag.style.display = 'none';
+
+       // Скрываем элемент, установив его стиль на 'none'
+       if (document.body.contains(editFormTag)) {
+         editFormTag.style.display = 'block';
+       }
+
+
+       
+       //  Заполняем поля формы на основе полученных данных из базы данных
+       for (const key in jsonData) {
+         dataValue = jsonData[key]
+
+         if (key.startsWith("radio-")){
+           fieldNameForm = key
+           const radioButtons = document.querySelectorAll('input[type="radio"][name="' + fieldNameForm + '"]');
+           radioButtons.forEach(function(radioButton) {
+               if (radioButton.value === dataValue) {
+                   radioButton.checked = true; // Устанавливаем радиокнопку в выбранное состояние
+               }
+           });
+         } else if  (key.startsWith("checkbox-")) {
+             const fieldNameForm = key.replace('checkbox-', '');
+             const checkbox = document.querySelector('input[type="checkbox"][name="' + fieldNameForm + '"]');
+             // Устанавливаем чекбокс в выбранное состояние
+             if (dataValue === true) {
+               checkbox.checked = true; 
+             } 
+             else{
+               checkbox.checked = false;
+             }
+         } else {
+             // код для установки input полей
+             fieldNameForm = key
+             const fieldElement = document.querySelector('input[name="' + fieldNameForm + '"]');
+             if (fieldElement) {
+               // Если найден элемент, устанавливаем его значение
+               fieldElement.value = dataValue;
+             }          
+         }
+       }
+     })
+
+   .catch(function(error) {  
+       console.log('Произошла ошибка при выполнении запроса:', error);
+   });
+ }
+}
+

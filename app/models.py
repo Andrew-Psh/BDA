@@ -4,6 +4,8 @@ from app import db, login
 from datetime import datetime, timezone
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
+import sqlalchemy as sa
+import sqlalchemy.orm as so
 
 
 class City(db.Model):
@@ -397,6 +399,60 @@ class LogCity(db.Model):
   
               ]
 
+class LogUser(db.Model):
+    '''Модель таблицы `log_users` 
+    '''
+    __tablename__ = 'log_users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    log_id = db.Column(db.Integer)
+    log_user = db.Column(db.String(50))
+    log_email = db.Column(db.String(120))
+    new_password = db.Column(db.Boolean, default=False)
+    timestamp = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    user_action = db.Column(db.Integer, db.ForeignKey('users_action.id'))
+    user = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+
+    def __repr__(self):
+        return f"<Лог БД 'LogUser': \
+            __tablename__ {self.__tablename__}, \
+            id {self.id}, \
+            log_id {self.log_id}, \
+            log_user {self.log_user}, \
+            log_email {self.log_email}, \
+            new_password {self.new_password}, \
+            user {self.user}, \
+            user_action {self.user_action}, \
+            timestamp {self.timestamp} \
+            >"
+
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'log_id': self.log_id,
+            'log_user': self.log_user,
+            'log_email': self.log_email,
+            'new_password': self.new_password,
+            'user': User.query.get(self.user).username if self.user else None,
+            'user_action': self.users_action.action,
+            'timestamp': self.timestamp
+        }
+
+    def get_columns():
+      return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "timestamp", 'name': "Дата и время изменений ", 'sort': True },
+            {'id': "user", 'name': "Автор изменений", 'sort': True },
+            { 'id': "user_action", 'name': "Действие", 'sort': True },
+            { 'id': "log_id", 'name': "user_id ", 'hidden': True },
+            { 'id': "log_user", 'name': "username", 'sort': True },
+            { 'id': "log_email", 'name': "Email ", 'sort': True },
+            { 'id': "new_password", 'name': "new_password ", 'sort': True },
+
+        ]
+
 
 
 class UserAction(db.Model):
@@ -404,8 +460,10 @@ class UserAction(db.Model):
     __tablename__ = 'users_action'
 
     id = db.Column(db.Integer, primary_key=True)
-    action = db.Column(db.String(20), nullable=False, default='0')
+    action = db.Column(db.String(30), nullable=False, default='0')
     log_city_rel = db.relationship("LogCity", backref="users_action")
+    log_user_rel = db.relationship("LogUser", backref="users_action")
+    log_update_user_rel = db.relationship("LogUpdateUser", backref="users_action")
 
     def __repr__(self):
         return f"<Модель 'UserAction': \
@@ -429,15 +487,22 @@ class UserAction(db.Model):
 def load_user(id):
     return db.session.get(User, int(id))
 
+
+
+
 class User(UserMixin, db.Model):
     '''Модель таблицы `users_action` '''
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), index=True, unique=True)
-    email = db.Column(db.String(120), index=True, unique=True)
-    password_hash = db.Column(db.String(256))
+    username = db.Column(db.String(64), index=True, unique=True, nullable=False)
+    email = db.Column(db.String(120), index=True, unique=True, nullable=False)
+    password_hash = db.Column(db.String(256), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+    status = db.Column(db.String(20), default='active')
     log_city_rel = db.relationship("LogCity", backref="users")
+    log_user_rel = db.relationship("LogUser", backref="users")
+    log_update_user_rel = db.relationship("LogUpdateUser", backref="users")
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -448,23 +513,88 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         return f"<Модель 'User': \
-            __tablename__ {self.__tablename__}, \
-            id {self.id},  \
-            username {self.username}, \
-            email {self.email}, \
-            password_hash {self.password_hash}>"
+            __tablename__: {self.__tablename__}, \
+            id: {self.id},  \
+            username: {self.username}, \
+            email: {self.email}, \
+            password_hash: {self.password_hash}, \
+            is_admin: {self.is_admin}, \
+            status: {self.status}, \
+            >"
     
     def to_dict(self):
         return {
             'id': self.id,
             'username': self.username,
             'email': self.email, 
-            'password_hash': self.password_hash
+            'password_hash': self.password_hash,
+            'is_admin': self.is_admin,
+            'status': self.status
         }
     def get_columns():
         return [
                 { 'id': "id", 'name': "id", 'hidden': True },
                 { 'id': "username", 'name': "Пользователь" },
                 { 'id': "email", 'name': "Email" },
-                { 'id': "password_hash", 'name': "Пароль" }
-                ]
+                { 'id': "is_admin", 'name': "Администратор"},
+                { 'id': "status", 'name': "status", 'hidden': True},
+        ]
+  
+    
+class LogUpdateUser(db.Model):
+    '''Модель таблицы `log_update_users` 
+    '''
+    __tablename__ = 'log_update_users'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer)
+    field_changed = db.Column(db.String(50))
+    old_value = db.Column(db.String(250))
+    new_value = db.Column(db.String(250))
+    action_taken = db.Column(db.Integer, db.ForeignKey('users_action.id'))
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    timestamp = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+
+    
+
+    def __repr__(self):
+        return f"<Лог БД 'LogUser': \
+            __tablename__ {self.__tablename__}, \
+            id {self.id}, \
+            user_id {self.user_id}, \
+            field_changed {self.field_changed}, \
+            old_value {self.old_value}, \
+            new_value {self.new_value}, \
+            author_id {self.author_id}, \
+            action_taken {self.action_taken}, \
+            timestamp {self.timestamp} \
+            >"
+
+
+    def to_dict(self):
+        author = User.query.get(self.author_id)
+        user = User.query.get(self.user_id)
+        action = UserAction.query.get(self.action_taken)
+
+        return {
+            'id': self.id,
+            'user_id': user.username if user else "Unknown", 
+            'field_changed': self.field_changed,
+            'old_value': self.old_value,
+            'new_value': self.new_value,
+            'author_id': author.username if author else "Unknown", 
+            'action_taken': action.action if action else "Unknown",
+            'timestamp': self.timestamp
+        }
+
+    def get_columns():
+      return [
+            { 'id': "id", 'name': "id", 'hidden': True },
+            { 'id': "timestamp", 'name': "Дата ", 'sort': True },
+            { 'id': "author_id", 'name': "Автор", 'sort': True },
+            { 'id': "action_taken", 'name': "Действие", 'sort': True },
+            { 'id': "user_id", 'name': "Учетная запись ", 'sort': True },
+            { 'id': "field_changed", 'name': "Поле"},
+            { 'id': "old_value", 'name': "Старое значение", 'sort': True },
+            { 'id': "new_value", 'name': "Новое значение ", 'sort': True }
+        ]

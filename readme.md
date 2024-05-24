@@ -5,7 +5,7 @@
 
 
 ## Установка
-1. Клонировать репозиторий: git clone https://github.com/yourusername/yourproject.git
+1. Клонировать репозиторий: git clone https://github.com/Andrew-Psh/BDA
 2. Убедитесь, что у вас установлена версия Python указанная в файле runtime.txt (например, python-3.12.1).
 3. Установить виртуальное окружение (рекомендуется): 
     - Создайте виртуальное окружение:   `python3 -m venv venv`

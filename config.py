@@ -41,3 +41,11 @@ class ProductionConfig(Config):
     # DATABASE_URL='mysql+mysqlconnector://black_cat:sqwerty21p@localhost/dba'
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+        # Настройки для Flask-Mail
+    MAIL_SERVER = os.getenv('MAIL_SERVER')
+    MAIL_PORT = os.getenv('MAIL_PORT')
+    MAIL_USE_SSL = os.getenv('MAIL_USE_SSL')  # Используем SSL для подключения
+    MAIL_USERNAME = os.getenv('MAIL_USERNAME')  # Получаем значение из .env
+    MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')  # Получаем значение из .env
+
+

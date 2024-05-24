@@ -1,4 +1,4 @@
-<!-- bda/app/templates/common/nav_add_entry.html -->
+<!-- bda/app/templates/common/nav_base.html -->
 
 
 <div class="menu"> <!-- Внешний контейнер -->
@@ -6,6 +6,12 @@
     <ul class="navigation">
       <li>
         <a href="{{ url_for('index') }}">Главная</a>
+      </li>
+
+      <li>
+        {% if current_user.is_admin %}
+            <a href="{{ url_for('admin_panel') }}">Панель администратора</a>
+        {% endif %}
       </li>
       <li>
         {% if link_buttom %}
@@ -17,6 +23,7 @@
       <div class="clear"></div>
     </ul>
   </div>
+
   <div class="additional-items">
     <li class="login-registration-item">
         {% if registration_button %}

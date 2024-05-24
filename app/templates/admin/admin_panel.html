@@ -1,0 +1,51 @@
+<!-- app/templates/admin/admin_panel.html -->
+
+{% extends "common/base.html"  %} 
+{% block content %}
+
+<br>
+<h1 class="main-title">1. Панель администратора - {{ title }}</h1>
+
+<div class="grid-container">
+    <div class="grid-item" id="block-show">
+        <h2 class="column-title">Пользователи</h2>
+            <ul class="link-list" id="link-show">
+                <li><a class="nav-link" href="{{ url_for('get_table_users', status='active') }}">Активные пользователи</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_users', status='archive') }}">Архив пользователей</a></li>
+                <li><a class="nav-link" href="{{ url_for('register') }}">Зарегистрировать пользователя</a></li>
+                <li><a class="nav-link" href="{{ url_for('select_user_to_update') }}">Измненить профиль пользователя</a></li>
+                <li><a class="nav-link" href="{{ url_for('restore_user_from_archive') }}">Восстановить пользователя из архива</a></li>
+            </ul>
+    </div>
+    <div class="grid-item" id="block-add">
+        <h2 class="column-title">Добавить</h2>
+            <ul class="link-list" id="link-add">
+                <li><a class="nav-link" href="{{ url_for('add_accum') }}">Новый аккумулятор</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_node') }}">Новый узел связи</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_model') }}">Новую модель аккумулятора</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_city') }}">Новый город</a></li>
+
+            </ul>
+    </div>
+    <div class="grid-item" id="block-move">
+        <h2 class="column-title">Переместить, изменить, удалить</h2>
+            <ul class="link-list" id="link-move">
+                <li><a class="nav-link" href="{{ url_for('add_accum') }}">Переместить аккумулятор</a></li>
+                <li><a class="nav-link" href="{{ url_for('add_node') }}">Редактировать узел связи</a></li>
+                <li><a class="nav-link" href="{{ url_for('delete_city') }}">Запись из таблицы Города</a></li>
+
+
+            </ul>
+    </div>
+    <div class="grid-item" id="block-change">
+        <h2 class="column-title">Логи</h2>
+            <ul class="link-list" id="link-change">
+                <li><a class="nav-link" href="{{ url_for('get_table_log_users') }}">Log users</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_log_cities') }}">Log cities</a></li>
+                <li><a class="nav-link" href="{{ url_for('get_table_log_update_user') }}">Таблица обновлений данных пользователя</a></li>
+
+            </ul>
+    </div>
+</div>
+
+{% endblock %}

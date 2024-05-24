@@ -1,0 +1,65 @@
+<!-- app/templates/edit_admin_user.html -->
+<!-- в файле base.html в head подключен скрипт    
+    <script src="{{ url_for('static', filename='js/dinamic_select_field.js') }}"></script>
+ -->
+
+ <script src="{{ url_for('static', filename='js/source1.js') }}"></script>
+
+ {% extends "common/base.html" %} 
+
+ {% block content %}
+ <div class="container">
+     <div class="flashed-messages-column">
+         <!-- Всплывающие сообщения будут здесь -->
+         {% block flashed_messages %}
+             {% include 'common/flashed_messages.html' %}
+         {% endblock flashed_messages %}
+     </div>
+     <div class="form-column">
+         
+         <form method="POST" id="formDinamic" action="{{ url_for('edit_admin_user') }}" class="wtform">
+             {{ form.csrf_token }}
+ 
+             <!-- Наличие поля   {{ form.input_field(class="form-group-hidden-field", value="данные для валидации поля") }} 
+             из родительской формы DinamicSelectField обеспечивает успешную валидацию составных полей WTForm 
+           -->
+   
+                 {{ form.input_field(class="CSRF-Token-Field", value="данные для валидации поля") }}
+ 
+                 <div class="form-fields">   
+                     <div class="child-form-fields">
+                         {% for couple_of_fields in form if couple_of_fields.name == 'username' %}
+                         
+                             <div class="group-{{ couple_of_fields.name }}" data-model-field="{{ fields_data[couple_of_fields.name].model_field}}" editing-form="{{ fields_data[couple_of_fields.name].editing_form}}">
+                                 {% for field in couple_of_fields %}
+                                     {% if 'input_field' in field.name %}
+                                         {{ fields_data[couple_of_fields.name].label}}<br> 
+                                         {{ field(class="form-input", type="text", id=field.id, placeholder=field.render_kw.placeholder, value="") }}
+                                     {% elif 'selection_from_db' in field.name %}  
+                                     {{ field(class="form-select", id=field.id, multiple="multiple", hidden="hidden") }} 
+                                             {% for choice in field.choices %}
+                                                 <div data-value="{{ choice }}">{{ choice }}</div>
+                                             {% endfor %}  
+                                     {% else %}  
+                                                 <!-- наличие данных полей csrf_token при каждом составном поле обеспечивает валидацию формы -->
+                                                 {{ field(class="CSRF-Token-Field") }}      
+                                     {% endif %}                     
+                                 {% endfor %}
+                             </div>           
+                         {% endfor %}
+     
+                     </div>
+                         {{ form.new_username.label }}{{ form.new_username }}
+                         {{ form.email.label }}{{ form.email }}
+                         {{ form.is_active.label }}{{ form.is_active }}
+                         {{ form.is_admin.label }}{{ form.is_admin }}
+                         {{ form.admin_password_reset.label }}{{ form.is_admin }}
+
+                 </div>
+                 
+                 {{ form.submit }}
+ 
+         </form>
+     </div>
+ </div>
+ {% endblock %}

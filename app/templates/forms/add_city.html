@@ -7,14 +7,13 @@
 
 {% block content %}
 <div class="container">
-    <div class="flashed-messages-column">
-        <!-- Всплывающие сообщения будут здесь -->
-        {% block flashed_messages %}
-            {% include 'common/flashed_messages.html' %}
-        {% endblock flashed_messages %}
+
+    <div class="table-column">
+        <div id="table" query-filter="{{ query_filter }}"></div>
+        <script src="{{ url_for('static', filename='js/gridInitializer.js') }}"></script>
     </div>
+
     <div class="form-column">
-        
         <form method="POST" id="formDinamic" action="{{ url_for('add_city') }}" class="wtform">
             {{ form.csrf_token }}
      
@@ -30,24 +29,33 @@
                 <div class="form-fields">
                     <div class="child-form-fields">
                         {% for couple_of_fields in form if couple_of_fields.name not in exceptions_list %}
-                        <div class="group-{{ couple_of_fields.name }}" data-table-field="{{ fields_data[couple_of_fields.name].table_field}}">
-                            {% for field in couple_of_fields %}
-                                {% if 'input_field' in field.name %}
-                                    {{ fields_data[couple_of_fields.name].label}}<br> 
-                                    {{ field(class="form-input", type="text", id=field.id, placeholder=field.render_kw.placeholder, value="") }}
-                                {% elif 'selection_from_db' in field.name %}  
-                                {{ field(class="form-select", id=field.id, multiple="multiple", hidden="hidden") }} 
-                                        {% for choice in field.choices %}
-                                            <div data-value="{{ choice }}">{{ choice }}</div>
-                                        {% endfor %}  
-                                {% else %}  
-                                            <!-- наличие данных полей csrf_token при каждом составном поле обеспечивает валидацию формы -->
-                                            {{ field(class="CSRF-Token-Field") }}      
-                                {% endif %}                     
-                            {% endfor %}
-                        </div>           
-                    {% endfor %}
-    
+                            <div class="group-{{ couple_of_fields.name }}" \
+                                model-name="{{ fields_attr[couple_of_fields.name].model_name}}" \
+                                model-field-name="{{ fields_attr[couple_of_fields.name].model_field_name}}">
+<!--                                     
+                                {{ fields_attr[couple_of_fields.name].model_name}}  
+                                {{ fields_attr[couple_of_fields.name].model_field_name}}                               -->
+                                
+                                {% for field in couple_of_fields %}
+
+                                    {% if 'input_field' in field.name %}
+                                        {{ fields_attr[couple_of_fields.name].label}}<br> 
+                                        {{ field(class="form-input", type="text", id=field.id, placeholder=field.render_kw.placeholder, value="") }}
+                                    
+                                    {% elif 'selection_from_db' in field.name %}  
+                                        {{ field(class="form-select", id=field.id, multiple="multiple", hidden="hidden") }} 
+                                            {% for choice in field.choices %}
+                                                <div data-value="{{ choice }}">{{ choice }}</div>
+                                            {% endfor %}  
+                                    
+                                    {% else %}  
+                                        <!-- наличие данных полей csrf_token при каждом составном поле обеспечивает валидацию формы -->
+                                        {{ field(class="CSRF-Token-Field") }}      
+                                    
+                                    {% endif %}                     
+                                {% endfor %}
+                            </div>           
+                        {% endfor %}
                     </div>
                     
                     {{ form.comment.label }}{{ form.comment }}
